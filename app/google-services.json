@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "172611815930",
+    "project_id": "grabthemilk-82d44",
+    "storage_bucket": "grabthemilk-82d44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172611815930:android:5884991a35bd21f8523c43",
+        "android_client_info": {
+          "package_name": "com.udacity.project4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172611815930-sjovs540us7m4hj88eibpf5ft6sepumi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlOu_vqfmonsR_WnCB-KYA_whpf8qAzIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172611815930-sjovs540us7m4hj88eibpf5ft6sepumi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
