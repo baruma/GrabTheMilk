@@ -12,24 +12,14 @@
     tools:context=".authentication.AuthenticationActivity">
 
     <Button
-        android:id="@+id/gmailLoginButton"
-        android:layout_width="229dp"
-        android:layout_height="45dp"
-        android:text="Login with Gmail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/emailLoginButton"
+        android:id="@+id/loginButton"
         android:layout_width="226dp"
         android:layout_height="50dp"
-        android:layout_marginTop="23dp"
-        android:text="Login with Email"
+        android:layout_marginBottom="50dp"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gmailLoginButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/registerButton"
