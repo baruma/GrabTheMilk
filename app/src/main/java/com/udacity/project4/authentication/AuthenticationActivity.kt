@@ -13,6 +13,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityAuthenticationBinding
+import com.udacity.project4.locationreminders.RemindersActivity
 
 class AuthenticationActivity : AppCompatActivity() {
 
@@ -21,14 +22,14 @@ class AuthenticationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authentication)
-
+        //setContentView(R.layout.activity_authentication)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
-        binding.loginButton.setOnClickListener ({launchSignInFlow()})
 
-//         TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
+        observeAuthenticationState()
+        binding.loginButton.setOnClickListener ({launchSignInFlow()}  // Here so if it's a new user, they can create a new account.
+//       [x]  TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
 
-//          TODO: If the user was authenticated, send him to RemindersActivity
+//     [x]     TODO: If the user was authenticated, send him to RemindersActivity
 
     }
 
@@ -61,15 +62,16 @@ class AuthenticationActivity : AppCompatActivity() {
     private fun observeAuthenticationState() {
         viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
-
                 AuthenticationViewModel.AuthenticationState.AUTHENTICATED -> {
-                    // Change UI - Navigate to appropariate screen.  Go to reminders.
+                    // [x] TODO: PROBLEM.  Does not go to appropriate screen yet (goes back to login).  Screen keeps "restarting"
+                    startActivity(Intent(this, RemindersActivity::class.java))  // Logged in - goes straight to guts of app.
+                    finish()
+                    Log.i("ACTIVITY AUTHENTICATE", "USER IS AUTHENTICATED")
                 }
 
                 else -> {
-
                     binding.loginButton.setOnClickListener {
-                        // make user register
+                        launchSignInFlow()  // Same as registration screen since, with an email, you can make a new account.
                     }
                 }
             }
