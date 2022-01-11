@@ -63,13 +63,13 @@ class AuthenticationActivity : AppCompatActivity() {
             when (authenticationState) {
 
                 AuthenticationViewModel.AuthenticationState.AUTHENTICATED -> {
-                    // Change UI - Navigate to appropariate screen
+                    // Change UI - Navigate to appropariate screen.  Go to reminders.
                 }
 
                 else -> {
 
                     binding.loginButton.setOnClickListener {
-                    // launch to appropriate screen (launch sign in flow)
+                        // make user register
                     }
                 }
             }
