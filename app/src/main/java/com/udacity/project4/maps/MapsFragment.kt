@@ -42,10 +42,6 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
 
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
         requestForegroundAndBackgroundLocationPermissions()
     }
 
@@ -63,7 +59,6 @@ class MapsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
         return binding.root
 
-//        return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
