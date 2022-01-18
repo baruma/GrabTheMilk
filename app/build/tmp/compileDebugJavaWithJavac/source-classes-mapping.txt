@@ -1,0 +1,61 @@
+com/udacity/project4/databinding/FragmentRemindersBindingImpl.java
+ com.udacity.project4.databinding.FragmentRemindersBindingImpl
+androidx/databinding/DataBinderMapperImpl.java
+ androidx.databinding.DataBinderMapperImpl
+com/udacity/project4/databinding/FragmentRemindersBinding.java
+ com.udacity.project4.databinding.FragmentRemindersBinding
+com/udacity/project4/locationreminders/data/local/RemindersDatabase_Impl.java
+ com.udacity.project4.locationreminders.data.local.RemindersDatabase_Impl
+ com.udacity.project4.locationreminders.data.local.RemindersDatabase_Impl$1
+com/udacity/project4/databinding/ItReminderBinding.java
+ com.udacity.project4.databinding.ItReminderBinding
+com/udacity/project4/databinding/FragmentSaveReminderBinding.java
+ com.udacity.project4.databinding.FragmentSaveReminderBinding
+androidx/databinding/library/baseAdapters/BR.java
+ androidx.databinding.library.baseAdapters.BR
+com/udacity/project4/BuildConfig.java
+ com.udacity.project4.BuildConfig
+com/udacity/project4/databinding/ActivityMapsBinding.java
+ com.udacity.project4.databinding.ActivityMapsBinding
+com/udacity/project4/databinding/FragmentMapsBindingImpl.java
+ com.udacity.project4.databinding.FragmentMapsBindingImpl
+com/udacity/project4/locationreminders/data/local/RemindersDao_Impl.java
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$1
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$2
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$3
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$4
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$5
+ com.udacity.project4.locationreminders.data.local.RemindersDao_Impl$6
+com/udacity/project4/databinding/ActivityReminderDescriptionBindingImpl.java
+ com.udacity.project4.databinding.ActivityReminderDescriptionBindingImpl
+com/udacity/project4/databinding/ActivityReminderDescriptionBinding.java
+ com.udacity.project4.databinding.ActivityReminderDescriptionBinding
+com/udacity/project4/databinding/FragmentMapsBinding.java
+ com.udacity.project4.databinding.FragmentMapsBinding
+com/udacity/project4/databinding/FragmentSelectLocationBinding.java
+ com.udacity.project4.databinding.FragmentSelectLocationBinding
+com/udacity/project4/BR.java
+ com.udacity.project4.BR
+com/udacity/project4/DataBindingTriggerClass.java
+ com.udacity.project4.DataBindingTriggerClass
+com/udacity/project4/databinding/ItReminderBindingImpl.java
+ com.udacity.project4.databinding.ItReminderBindingImpl
+com/udacity/project4/databinding/FragmentSaveReminderBindingImpl.java
+ com.udacity.project4.databinding.FragmentSaveReminderBindingImpl
+ com.udacity.project4.databinding.FragmentSaveReminderBindingImpl$1
+ com.udacity.project4.databinding.FragmentSaveReminderBindingImpl$2
+com/udacity/project4/databinding/ActivityRemindersBinding.java
+ com.udacity.project4.databinding.ActivityRemindersBinding
+com/udacity/project4/DataBinderMapperImpl.java
+ com.udacity.project4.DataBinderMapperImpl
+ com.udacity.project4.DataBinderMapperImpl$InnerBrLookup
+ com.udacity.project4.DataBinderMapperImpl$InnerLayoutIdLookup
+com/udacity/project4/databinding/ActivityAuthenticationBindingImpl.java
+ com.udacity.project4.databinding.ActivityAuthenticationBindingImpl
+com/udacity/project4/databinding/FragmentSelectLocationBindingImpl.java
+ com.udacity.project4.databinding.FragmentSelectLocationBindingImpl
+com/udacity/project4/databinding/ActivityAuthenticationBinding.java
+ com.udacity.project4.databinding.ActivityAuthenticationBinding
+androidx/databinding/DataBindingComponent.java
+ androidx.databinding.DataBindingComponent

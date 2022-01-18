@@ -30,7 +30,7 @@ class AuthenticationActivity : AppCompatActivity() {
         binding.registerButton.setOnClickListener({launchSignInFlow()})
 //       [x]  TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
 
-//     [x]     TODO: If the user was authenticated, send him to RemindersActivity
+//     [x]     TODO: If the user was authenticated, send them to RemindersActivity
 
     }
 
@@ -64,7 +64,6 @@ class AuthenticationActivity : AppCompatActivity() {
         viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationViewModel.AuthenticationState.AUTHENTICATED -> {
-                    // [x] TODO: PROBLEM.  Does not go to appropriate screen yet (goes back to login).  Screen keeps "restarting"
                     startActivity(Intent(this, RemindersActivity::class.java))  // Logged in - goes straight to guts of app.
                     finish()
                     Log.i("ACTIVITY AUTHENTICATE", "USER IS AUTHENTICATED")

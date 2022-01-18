@@ -11,15 +11,20 @@ import androidx.navigation.fragment.NavHostFragment
 import com.udacity.project4.R
 import kotlinx.android.synthetic.main.activity_reminders.*
 
-/**
- * The RemindersActivity that holds the reminders fragments
- */
 class RemindersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)
 
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

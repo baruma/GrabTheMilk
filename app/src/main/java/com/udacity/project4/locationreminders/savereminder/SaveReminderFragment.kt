@@ -27,17 +27,20 @@ class SaveReminderFragment : BaseFragment() {
         setDisplayHomeAsUpEnabled(true)
 
         binding.viewModel = _viewModel
+        setHasOptionsMenu(true)
+
 
         return binding.root
     }
 
+    // MARK: I didn't have any idea what the LocationReminderFragment did so I replaced it for the time being with my MapsFragment.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
         binding.selectLocation.setOnClickListener {
             //            Navigate to another fragment to get the user location
             _viewModel.navigationCommand.value =
-                NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToSelectLocationFragment())
+                NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
         }
 
         binding.saveReminder.setOnClickListener {
