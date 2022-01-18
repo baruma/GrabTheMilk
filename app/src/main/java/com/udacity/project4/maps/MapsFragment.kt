@@ -15,6 +15,8 @@ import android.util.Log
 import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -30,11 +32,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityMapsBinding
+import com.udacity.project4.databinding.FragmentMapsBinding
 
 class MapsFragment : Fragment() {
 
-    private lateinit var binding: ActivityMapsBinding
-    private lateinit var map: GoogleMap
+    private lateinit var binding: FragmentMapsBinding
+    //private lateinit var map: GoogleMap
     private val runningQOrLater = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -57,7 +60,10 @@ class MapsFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
+        return binding.root
+
+//        return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
