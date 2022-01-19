@@ -2830,6 +2830,7 @@ mipmap ic_launcher_round
 navigation nav_graph
 plurals fui_error_weak_password
 plurals mtrl_badge_content_description
+raw map_style
 raw places_keep
 string abc_action_bar_home_description
 string abc_action_bar_up_description

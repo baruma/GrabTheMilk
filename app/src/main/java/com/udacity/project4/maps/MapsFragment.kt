@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.snackbar.Snackbar
@@ -32,7 +34,7 @@ import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.databinding.FragmentMapsBinding
 
-class MapsFragment : Fragment(), OnMapReadyCallback {
+class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     private lateinit var binding: FragmentMapsBinding
     private val runningQOrLater =
@@ -57,6 +59,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private val callback = OnMapReadyCallback { googleMap ->
         this.map = googleMap
+        googleMap.setOnPoiClickListener(this)
+
         if (foregroundAndBackgroundLocationPermissionApproved()) {
             getUserLocation()
         } else {
@@ -76,6 +80,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         setHasOptionsMenu(true)
 
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
@@ -91,7 +96,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         // Build the map.
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.mapsFragment) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
+//        mapFragment?.getMapAsync(this)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
         return binding.root
@@ -325,10 +330,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(map: GoogleMap) {
-        this.map = map
-
-    }
+//    override fun onMapReady(map: GoogleMap) {
+//
+//    }
 
     private fun getLocationPermission() {
 
@@ -347,6 +351,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onPoiClick(poi: PointOfInterest) {
+        Toast.makeText(context, """Clicked: ${poi.name}
+            Place ID:${poi.placeId}
+            Latitude:${poi.latLng.latitude} Longitude:${poi.latLng.longitude}""",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }
 
 private const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
