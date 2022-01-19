@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -57,9 +58,27 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     private var lastKnownLocation: Location? = null
 
+    private var pointOfInterest: LatLng? = null
+
+    override fun onPoiClick(poi: PointOfInterest) {
+        Toast.makeText(context, """Clicked: ${poi.name}
+            Place ID:${poi.placeId}
+            Latitude:${poi.latLng.latitude} Longitude:${poi.latLng.longitude}""",
+            Toast.LENGTH_LONG
+        ).show()
+
+        pointOfInterest = poi.latLng
+    }
+
     private val callback = OnMapReadyCallback { googleMap ->
         this.map = googleMap
         googleMap.setOnPoiClickListener(this)
+
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(pointOfInterest!!)
+        )
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(pointOfInterest))
 
         if (foregroundAndBackgroundLocationPermissionApproved()) {
             getUserLocation()
@@ -71,7 +90,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.map_options, menu)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -351,13 +369,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         }
     }
 
-    override fun onPoiClick(poi: PointOfInterest) {
-        Toast.makeText(context, """Clicked: ${poi.name}
-            Place ID:${poi.placeId}
-            Latitude:${poi.latLng.latitude} Longitude:${poi.latLng.longitude}""",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
 }
 
 private const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
