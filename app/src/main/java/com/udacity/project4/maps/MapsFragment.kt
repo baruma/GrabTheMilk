@@ -100,6 +100,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     ): View? {
         setHasOptionsMenu(true)
 
+        Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_LONG).show()
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
