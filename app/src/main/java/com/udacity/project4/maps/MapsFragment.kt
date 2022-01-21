@@ -53,7 +53,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+    private var defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var locationPermissionGranted = false
 
     private var lastKnownLocation: Location? = null
@@ -67,18 +67,20 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             Toast.LENGTH_LONG
         ).show()
 
-        pointOfInterest = poi.latLng
+        defaultLocation = poi.latLng
+
+        // Left off here.
+        map?.addMarker(
+            MarkerOptions()
+                .position(defaultLocation)
+        )
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
         this.map = googleMap
         googleMap.setOnPoiClickListener(this)
 
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(pointOfInterest!!)
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(pointOfInterest))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation))
 
         if (foregroundAndBackgroundLocationPermissionApproved()) {
             getUserLocation()
