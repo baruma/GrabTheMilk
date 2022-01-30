@@ -27,16 +27,12 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
 
     var location: PointOfInterest? = null
 
-//    val remindersLocalRepository: RemindersLocalRepository by inject()
-
-
 //    val db = Room.databaseBuilder(
 //        applicationContext,
 //        AppDatabase::class.java, "database-name"
 //    ).build()
 
 //    val db = Room.databaseBuilder(app,  )
-
 
 
     /**

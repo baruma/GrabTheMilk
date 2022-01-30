@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -27,10 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PointOfInterest
+import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.snackbar.Snackbar
@@ -43,6 +41,7 @@ import org.koin.android.ext.android.inject
 
 class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     val saveReminderViewModel: SaveReminderViewModel by inject()
+    private val TAG = MapsActivity::class.java.simpleName
 
     private lateinit var binding: FragmentMapsBinding
     private val runningQOrLater =
@@ -92,6 +91,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     private val callback = OnMapReadyCallback { googleMap ->
         this.map = googleMap
+        setMapStyle(googleMap)
         googleMap.setOnPoiClickListener(this)
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation))
@@ -202,6 +202,25 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             //Permissions granted
             getUserLocation()
             checkDeviceLocationSettingsAndStartGeofence()
+        }
+    }
+
+    private fun setMapStyle(map: GoogleMap) {
+        try {
+            // Customize the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = map.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context,
+                    R.raw.map_style
+                )
+            )
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
         }
     }
 
