@@ -9,9 +9,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.udacity.project4.R
+import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
+import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RemindersActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -18,6 +18,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -34,8 +37,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.databinding.FragmentMapsBinding
+import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
+import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+import org.koin.android.ext.android.inject
 
 class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
+    val saveReminderViewModel: SaveReminderViewModel by inject()
 
     private lateinit var binding: FragmentMapsBinding
     private val runningQOrLater =
@@ -58,22 +65,29 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     private var lastKnownLocation: Location? = null
 
-    private var pointOfInterest: LatLng? = null
+    // This needs to be MutableDataSource
+    private var pointOfInterest: PointOfInterest? = null
 
+    // We were working on Mutable Live Data between fragments and ViewModels
     override fun onPoiClick(poi: PointOfInterest) {
         Toast.makeText(context, """Clicked: ${poi.name}
             Place ID:${poi.placeId}
-            Latitude:${poi.latLng.latitude} Longitude:${poi.latLng.longitude}""",
+            Latitude:${poi.latLng.latitude} 
+            Longitude:${poi.latLng.longitude}""",
             Toast.LENGTH_LONG
         ).show()
 
-        defaultLocation = poi.latLng
+        pointOfInterest = poi
 
-        // Left off here.
         map?.addMarker(
             MarkerOptions()
-                .position(defaultLocation)
+                .position(pointOfInterest!!.latLng)
         )
+
+        saveReminderViewModel.saveLocation(poi)
+
+        //navigate back
+        findNavController().popBackStack()
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -102,7 +116,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
         Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_LONG).show()
 
-
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
@@ -130,6 +143,10 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
         }
         super.onSaveInstanceState(outState)
+    }
+
+    private fun saveLocation() {
+        saveReminderViewModel.location = pointOfInterest
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

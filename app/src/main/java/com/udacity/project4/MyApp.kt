@@ -5,8 +5,12 @@ import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.local.LocalDB
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
+import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
+import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -23,23 +27,31 @@ class MyApp : Application() {
             //Declare a ViewModel - be later inject into Fragment with dedicated injector using by viewModel()
             viewModel {
                 RemindersListViewModel(
-                    get(),
-                    get() as ReminderDataSource
+                    androidApplication(),
+                    get()
+                )
+            }
+
+            viewModel {
+                RemindersViewModel(
+                    androidApplication()
                 )
             }
             //Declare singleton definitions to be later injected using by inject()
             single {
                 //This view model is declared singleton to be used across multiple fragments
                 SaveReminderViewModel(
-                    get(),
-                    get() as ReminderDataSource
+                    androidApplication(),
+                    get()
                 )
             }
+
             single { RemindersLocalRepository(get()) as ReminderDataSource }
             single { LocalDB.createRemindersDao(this@MyApp) }
         }
 
         startKoin {
+            androidLogger()
             androidContext(this@MyApp)
             modules(listOf(myModule))
         }

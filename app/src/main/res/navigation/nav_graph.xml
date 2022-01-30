@@ -38,6 +38,10 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.udacity.project4.maps.MapsFragment"
-        android:label="MapsFragment" />
+        android:label="MapsFragment" >
+        <action
+            android:id="@+id/action_mapsFragment_to_saveReminderFragment"
+            app:destination="@id/saveReminderFragment" />
+    </fragment>
 
 </navigation>

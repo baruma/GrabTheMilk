@@ -1,25 +1,43 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import com.google.android.gms.maps.model.PointOfInterest
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseViewModel
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
     BaseViewModel(app) {
     val reminderTitle = MutableLiveData<String>()
     val reminderDescription = MutableLiveData<String>()
-    val reminderSelectedLocationStr = MutableLiveData<String>()
-    val selectedPOI = MutableLiveData<PointOfInterest>()
+    var reminderSelectedLocationStr = MutableLiveData<String>()
     val latitude = MutableLiveData<Double>()
     val longitude = MutableLiveData<Double>()
+    var selectedPOI = MutableLiveData<PointOfInterest>()
+
+    var location: PointOfInterest? = null
+
+//    val remindersLocalRepository: RemindersLocalRepository by inject()
+
+
+//    val db = Room.databaseBuilder(
+//        applicationContext,
+//        AppDatabase::class.java, "database-name"
+//    ).build()
+
+//    val db = Room.databaseBuilder(app,  )
+
+
 
     /**
      * Clear the live data objects to start fresh next time the view model gets called
@@ -33,13 +51,19 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         longitude.value = null
     }
 
-    /**
-     * Validate the entered data then saves the reminder data to the DataSource
-     */
     fun validateAndSaveReminder(reminderData: ReminderDataItem) {
         if (validateEnteredData(reminderData)) {
             saveReminder(reminderData)
         }
+    }
+
+    fun saveLocation(location: PointOfInterest) {
+        this.location = location
+        selectedPOI.value = location
+        reminderSelectedLocationStr.value = location.name
+
+        Toast.makeText(app, "Don't forget your title and description!", Toast.LENGTH_LONG).show()
+
     }
 
     /**
