@@ -27,6 +27,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
 
     var location: PointOfInterest? = null
 
+
 //    val db = Room.databaseBuilder(
 //        applicationContext,
 //        AppDatabase::class.java, "database-name"
@@ -57,7 +58,8 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         this.location = location
         selectedPOI.value = location
         reminderSelectedLocationStr.value = location.name
-
+        latitude.value = location.latLng.latitude
+        longitude.value = location.latLng.longitude
         Toast.makeText(app, "Don't forget your title and description!", Toast.LENGTH_LONG).show()
 
     }
@@ -99,4 +101,19 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
         return true
     }
+
+
+    fun saveToDataSource(title :String,
+                                  description: String,
+                                  location :String,
+                                  latitude : Double,
+                                  longitude : Double)  {
+        viewModelScope.launch {
+            dataSource.saveReminder(ReminderDTO(title, description, location, latitude, longitude))
+        }
+    }
+
+
+
+    // write coroutine code here.  viewmodels initiate the threading call but the repositories do the actual threading.
 }
