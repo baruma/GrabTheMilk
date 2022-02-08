@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingRequest
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
@@ -16,8 +18,8 @@ import org.koin.android.ext.android.inject
 
 class SaveReminderFragment : BaseFragment() {
     override val _viewModel: SaveReminderViewModel by inject()
+    private val remindersViewModel: RemindersViewModel by inject()
     private lateinit var binding: FragmentSaveReminderBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +55,10 @@ class SaveReminderFragment : BaseFragment() {
 //            TODO: use the user entered reminder details to:
 //             1) add a geofencing request
 //             2) save the reminder to the local db
+
+
+            remindersViewModel.getGeofencingRequest(latitude!!, longitude!!)
+
 
             _viewModel.saveToDataSource(title!!, description!!, location!!, latitude!!, longitude!!)
             findNavController().popBackStack()

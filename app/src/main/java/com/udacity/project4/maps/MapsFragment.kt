@@ -1,8 +1,11 @@
 package com.udacity.project4.maps
+
 import android.Manifest
+import android.R.attr.radius
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -19,8 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -35,9 +36,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.databinding.FragmentMapsBinding
-import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import org.koin.android.ext.android.inject
+
 
 class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     val saveReminderViewModel: SaveReminderViewModel by inject()
@@ -66,6 +67,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     // This needs to be MutableDataSource
     private var pointOfInterest: PointOfInterest? = null
+    lateinit var geofencingClient: GeofencingClient
+
 
     // We were working on Mutable Live Data between fragments and ViewModels
     override fun onPoiClick(poi: PointOfInterest) {
@@ -104,6 +107,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.map_options, menu)
 
@@ -135,6 +139,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.mapsFragment) as SupportMapFragment?
 //        mapFragment?.getMapAsync(this)
+
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
         return binding.root
@@ -340,8 +345,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     companion object {
 
-//        private val TAG = MapsActivityCurrentPlace::class.java.simpleName
-
         // May need to change the below into an activity
         private val TAG = MapsFragment::class.java.simpleName
         private const val DEFAULT_ZOOM = 15
@@ -394,10 +397,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         }
     }
 
-//    override fun onMapReady(map: GoogleMap) {
-//
-//    }
-
     private fun getLocationPermission() {
 
         if (ContextCompat.checkSelfPermission(
@@ -416,6 +415,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     }
 
 }
+
 
 private const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
 private const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
