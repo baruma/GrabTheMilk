@@ -6,19 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingRequest
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentSaveReminderBinding
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
-import kotlinx.android.synthetic.main.fragment_save_reminder.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SaveReminderFragment : BaseFragment() {
-    override val _viewModel: SaveReminderViewModel by inject()
-    private val remindersViewModel: RemindersViewModel by inject()
+    override val _viewModel: SaveReminderViewModel by sharedViewModel()
+    private val remindersViewModel: RemindersViewModel by sharedViewModel()
     private lateinit var binding: FragmentSaveReminderBinding
 
     override fun onCreateView(
@@ -57,7 +55,7 @@ class SaveReminderFragment : BaseFragment() {
 //             2) save the reminder to the local db
 
 
-            remindersViewModel.getGeofencingRequest(latitude!!, longitude!!)
+            remindersViewModel.createGeofenceRequest(latitude!!, longitude!!, location!!)
 
 
             _viewModel.saveToDataSource(title!!, description!!, location!!, latitude!!, longitude!!)
