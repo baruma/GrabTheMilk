@@ -4,30 +4,43 @@ package com.udacity.project4.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.udacity.project4.R;
-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem;
+import com.udacity.project4.locationreminders.savereminder.RemindersViewModel;
 import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class ActivityReminderDescriptionBinding extends ViewDataBinding {
+  @NonNull
+  public final TextView descriptionLabel;
+
+  @NonNull
+  public final TextView locationLabel;
+
+  @NonNull
+  public final TextView textLabel;
+
   @Bindable
-  protected ReminderDataItem mReminderDataItem;
+  protected RemindersViewModel mViewModel;
 
   protected ActivityReminderDescriptionBinding(Object _bindingComponent, View _root,
-      int _localFieldCount) {
+      int _localFieldCount, TextView descriptionLabel, TextView locationLabel, TextView textLabel) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.descriptionLabel = descriptionLabel;
+    this.locationLabel = locationLabel;
+    this.textLabel = textLabel;
   }
 
-  public abstract void setReminderDataItem(@Nullable ReminderDataItem reminderDataItem);
+  public abstract void setViewModel(@Nullable RemindersViewModel viewModel);
 
   @Nullable
-  public ReminderDataItem getReminderDataItem() {
-    return mReminderDataItem;
+  public RemindersViewModel getViewModel() {
+    return mViewModel;
   }
 
   @NonNull

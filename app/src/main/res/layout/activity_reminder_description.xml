@@ -4,19 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--Data item that holds the reminder details-->
         <variable
-            name="reminderDataItem"
-            type="com.udacity.project4.locationreminders.reminderslist.ReminderDataItem" />
+            name="viewModel"
+            type="com.udacity.project4.locationreminders.savereminder.RemindersViewModel" />
     </data>
 
     <LinearLayout
-        android:id="@+id/title_label"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:context=".locationreminders.ReminderDescriptionActivity">
+        android:orientation="vertical">
         <!--TODO: add the design of the reminder details-->
 
         <TextView
@@ -24,8 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Reminder Title"
+            android:text="@={viewModel.reminder.description}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,19 +34,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Reminder Description"
+            android:text="@={viewModel.reminder.location}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Reminder Location"
+            android:text="@={viewModel.reminder.title}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

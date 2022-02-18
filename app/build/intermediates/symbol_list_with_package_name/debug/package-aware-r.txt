@@ -2289,6 +2289,7 @@ id default_activity_button
 id deltaRelative
 id dependency_ordering
 id description
+id description_label
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -2381,6 +2382,7 @@ id line3
 id linear
 id listMode
 id list_item
+id location_label
 id loginButton
 id logo
 id logout
@@ -2491,6 +2493,7 @@ id refreshLayout
 id registerButton
 id reminderCardView
 id reminderDescription
+id reminderDescriptionActivity
 id reminderListFragment
 id reminderTitle
 id reminderssRecyclerView
@@ -2592,6 +2595,7 @@ id textStart
 id textWatcher
 id text_input_end_icon
 id text_input_start_icon
+id text_label
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -2724,6 +2728,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_description
 layout fragment_maps
 layout fragment_reminders
 layout fragment_save_reminder
@@ -3008,6 +3013,7 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_maps_key
 string google_storage_bucket
+string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string hybrid_map
 string icon_content_description

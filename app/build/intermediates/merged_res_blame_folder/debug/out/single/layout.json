@@ -16,6 +16,10 @@
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/fragment_reminders.xml"
     },
     {
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_description.xml",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/fragment_description.xml"
+    },
+    {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_authentication.xml",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/activity_authentication.xml"
     },

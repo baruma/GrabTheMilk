@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
@@ -23,9 +24,7 @@ import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
-import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RemindersActivity : AppCompatActivity() {
@@ -54,32 +53,52 @@ class RemindersActivity : AppCompatActivity() {
         }
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-//        _viewModel.geofenceRequest.observe(this, geofenceRequestObserver)
-//
-//        _viewModel.createGeofenceRequestForExistingPOI()
-//
-//        val reminderObserver = Observer<ReminderDTO> {
-//
-//        }
-//
-//        _viewModel.reminder.observe(this, reminderObserver)
+        _viewModel.geofenceRequest.observe(this, geofenceRequestObserver)
 
-        createNotificationForGeofence(ReminderDTO("blah", "d", "lasjdflkjs", 1.1, 2.2, "lkajsdflkjsdlfkjl"))
+        _viewModel.createGeofenceRequestForExistingPOI()
+
+        val reminderObserver = Observer<ReminderDTO> {
+
+            createNotificationForGeofence(it)
+        }
+
+        _viewModel.reminder.observe(this, reminderObserver)
 
 
+
+        createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
     }
 
     // Figure out if this is getting hit or not
+    // Create Intent and pass data from here to DetailView
     fun createNotificationForGeofence(reminder: ReminderDTO) {
         val intent = Intent(this, RemindersActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val intentForDescriptionScreen = Intent(this, ReminderDescriptionActivity::class.java)
+
+//        val pendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+//            addNextIntentWithParentStack(intentForDescriptionScreen)
+//            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+//        }
+
+        val dataBundle = Bundle()
+        dataBundle.putSerializable("reminder", reminder)
+
+        val pendingIntent = NavDeepLinkBuilder(this)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.reminderDescriptionActivity)
+            .setArguments(dataBundle)
+            .createPendingIntent()
+
+       // val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        // Description does not have to be an activity - make it a Fragment since RemindersActivity already holds a lot of Fragments.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "ChannelID"
             val descriptionText = "Channel Description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel("ChannelID", name, importance).apply {
                 description = descriptionText
             }
@@ -95,6 +114,7 @@ class RemindersActivity : AppCompatActivity() {
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText(reminder.description))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
 
         with(NotificationManagerCompat.from(this)) {
             // notificationId is a unique int for each notification that you must define

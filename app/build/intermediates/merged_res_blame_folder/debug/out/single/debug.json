@@ -44,12 +44,12 @@
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-mdpi/ic_launcher_background.png"
     },
     {
-        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_save.png.flat",
-        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_save.png"
-    },
-    {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_no_data.png.flat",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_no_data.png"
+    },
+    {
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_save.png.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_save.png"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_it_reminder.xml.flat",
@@ -190,6 +190,10 @@
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_activity_reminder_description.xml.flat",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/activity_reminder_description.xml"
+    },
+    {
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_fragment_description.xml.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/fragment_description.xml"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xhdpi_ic_location.png.flat",

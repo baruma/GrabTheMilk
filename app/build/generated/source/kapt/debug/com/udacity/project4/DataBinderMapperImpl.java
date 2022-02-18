@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingComponent;
 import androidx.databinding.ViewDataBinding;
 import com.udacity.project4.databinding.ActivityAuthenticationBindingImpl;
 import com.udacity.project4.databinding.ActivityReminderDescriptionBindingImpl;
+import com.udacity.project4.databinding.FragmentDescriptionBindingImpl;
 import com.udacity.project4.databinding.FragmentMapsBindingImpl;
 import com.udacity.project4.databinding.FragmentRemindersBindingImpl;
 import com.udacity.project4.databinding.FragmentSaveReminderBindingImpl;
@@ -28,21 +29,24 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ACTIVITYREMINDERDESCRIPTION = 2;
 
-  private static final int LAYOUT_FRAGMENTMAPS = 3;
+  private static final int LAYOUT_FRAGMENTDESCRIPTION = 3;
 
-  private static final int LAYOUT_FRAGMENTREMINDERS = 4;
+  private static final int LAYOUT_FRAGMENTMAPS = 4;
 
-  private static final int LAYOUT_FRAGMENTSAVEREMINDER = 5;
+  private static final int LAYOUT_FRAGMENTREMINDERS = 5;
 
-  private static final int LAYOUT_FRAGMENTSELECTLOCATION = 6;
+  private static final int LAYOUT_FRAGMENTSAVEREMINDER = 6;
 
-  private static final int LAYOUT_ITREMINDER = 7;
+  private static final int LAYOUT_FRAGMENTSELECTLOCATION = 7;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(7);
+  private static final int LAYOUT_ITREMINDER = 8;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(8);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.activity_authentication, LAYOUT_ACTIVITYAUTHENTICATION);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.activity_reminder_description, LAYOUT_ACTIVITYREMINDERDESCRIPTION);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.fragment_description, LAYOUT_FRAGMENTDESCRIPTION);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.fragment_maps, LAYOUT_FRAGMENTMAPS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.fragment_reminders, LAYOUT_FRAGMENTREMINDERS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.udacity.project4.R.layout.fragment_save_reminder, LAYOUT_FRAGMENTSAVEREMINDER);
@@ -70,6 +74,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
             return new ActivityReminderDescriptionBindingImpl(component, view);
           }
           throw new IllegalArgumentException("The tag for activity_reminder_description is invalid. Received: " + tag);
+        }
+        case  LAYOUT_FRAGMENTDESCRIPTION: {
+          if ("layout/fragment_description_0".equals(tag)) {
+            return new FragmentDescriptionBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for fragment_description is invalid. Received: " + tag);
         }
         case  LAYOUT_FRAGMENTMAPS: {
           if ("layout/fragment_maps_0".equals(tag)) {
@@ -146,22 +156,22 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(4);
+    static final SparseArray<String> sKeys = new SparseArray<String>(3);
 
     static {
       sKeys.put(0, "_all");
       sKeys.put(1, "item");
-      sKeys.put(2, "reminderDataItem");
-      sKeys.put(3, "viewModel");
+      sKeys.put(2, "viewModel");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(7);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(8);
 
     static {
       sKeys.put("layout/activity_authentication_0", com.udacity.project4.R.layout.activity_authentication);
       sKeys.put("layout/activity_reminder_description_0", com.udacity.project4.R.layout.activity_reminder_description);
+      sKeys.put("layout/fragment_description_0", com.udacity.project4.R.layout.fragment_description);
       sKeys.put("layout/fragment_maps_0", com.udacity.project4.R.layout.fragment_maps);
       sKeys.put("layout/fragment_reminders_0", com.udacity.project4.R.layout.fragment_reminders);
       sKeys.put("layout/fragment_save_reminder_0", com.udacity.project4.R.layout.fragment_save_reminder);
