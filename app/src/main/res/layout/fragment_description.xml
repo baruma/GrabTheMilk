@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.udacity.project4.locationreminders.savereminder.RemindersViewModel" />
+            type="com.udacity.project4.locationreminders.DescriptionViewModel" />
     </data>
 
     <LinearLayout

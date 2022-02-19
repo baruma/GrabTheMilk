@@ -55,9 +55,6 @@
             android:value="AIzaSyCfQgd752YNbd72dOovld2mYIlqima3id4" />
 
         <activity
-            android:name="com.udacity.project4.locationreminders.ReminderDescriptionActivity"
-            android:exported="false" />
-        <activity
             android:name="com.udacity.project4.authentication.AuthenticationActivity"
             android:exported="true" >
             <intent-filter>

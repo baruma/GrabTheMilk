@@ -7,10 +7,10 @@ INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/Andro
 	android:name
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:39:13-58
 manifest
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
 MERGED from [androidx.databinding:databinding-adapters:4.2.1] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/e7327dc8809c1b90be33518c7f536b2a/databinding-adapters-4.2.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.databinding:databinding-runtime:4.2.1] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/27bdd655e0010c1f42fd1b34f20d4f65/databinding-runtime-4.2.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.databinding:viewbinding:4.2.1] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/5e80a237a5d05e1a260816d7f58c29b0/jetified-viewbinding-4.2.1/AndroidManifest.xml:17:1-22:12
@@ -106,20 +106,20 @@ MERGED from [org.koin:koin-android:2.0.1] /Users/lianahaque/.gradle/caches/trans
 MERGED from [com.android.volley:volley:1.1.1] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/6c1b61b40807a3f2d7a666c8eebadf4d/jetified-volley-1.1.1/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.datatransport:transport-api:2.2.0] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/105def3d6d7e0a706331897a6849a338/jetified-transport-api-2.2.0/AndroidManifest.xml:15:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0-rc01] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/2bf52a04d1759442bb2c0f9336ea08a8/jetified-annotation-experimental-1.1.0-rc01/AndroidManifest.xml:17:1-24:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
-INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
+INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
 	package
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:3:5-35
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-69:12
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:1-66:12
 		INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:2:11-69
@@ -152,7 +152,7 @@ ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidM
 	android:name
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:15:22-65
 application
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:17:5-67:19
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:17:5-64:19
 MERGED from [androidx.fragment:fragment-testing:1.1.0-alpha07] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/13312bbbdce4fd3d7c01a67f607f3783/jetified-fragment-testing-1.1.0-alpha07/AndroidManifest.xml:26:5-37:19
 MERGED from [androidx.fragment:fragment-testing:1.1.0-alpha07] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/13312bbbdce4fd3d7c01a67f607f3783/jetified-fragment-testing-1.1.0-alpha07/AndroidManifest.xml:26:5-37:19
 MERGED from [com.google.android.libraries.places:places:2.4.0] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/a97e11eb64b593321dd6c88e2e2da26f/jetified-places-2.4.0/AndroidManifest.xml:13:5-21:19
@@ -223,50 +223,44 @@ MERGED from [com.android.volley:volley:1.1.1] /Users/lianahaque/.gradle/caches/t
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:24:9-40
 	android:name
 		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:18:9-30
-activity#com.udacity.project4.locationreminders.ReminderDescriptionActivity
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:42:9-44:40
-	android:exported
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:44:13-37
-	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:43:13-74
 activity#com.udacity.project4.authentication.AuthenticationActivity
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:45:9-52:20
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:42:9-49:20
 	android:exported
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:47:13-36
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:44:13-36
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:46:13-66
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:43:13-66
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:48:13-51:29
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:45:13-48:29
 action#android.intent.action.MAIN
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:49:17-69
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:46:17-69
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:49:25-66
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:46:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:50:17-77
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:47:17-77
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:50:27-74
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:47:27-74
 activity#com.udacity.project4.locationreminders.RemindersActivity
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:53:9-56:20
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:50:9-53:20
 	android:exported
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:55:13-36
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:52:13-36
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:54:13-64
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:51:13-64
 receiver#com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:58:9-61:39
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:55:9-58:39
 	android:enabled
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:60:13-35
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:57:13-35
 	android:exported
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:61:13-36
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:58:13-36
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:59:13-81
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:56:13-81
 service#com.udacity.project4.locationreminders.geofence.GeofenceTransitionsJobIntentService
-ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:63:9-66:72
+ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:60:9-63:72
 	android:exported
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:65:13-36
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:62:13-36
 	android:permission
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:66:13-69
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:63:13-69
 	android:name
-		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:64:13-91
+		ADDED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml:61:13-91
 uses-sdk
 INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/lianahaque/AndroidStudioProjects/starter/app/src/main/AndroidManifest.xml

@@ -2289,6 +2289,7 @@ id default_activity_button
 id deltaRelative
 id dependency_ordering
 id description
+id descriptionFragment
 id description_label
 id design_bottom_sheet
 id design_menu_item_action_area
@@ -2493,7 +2494,6 @@ id refreshLayout
 id registerButton
 id reminderCardView
 id reminderDescription
-id reminderDescriptionActivity
 id reminderListFragment
 id reminderTitle
 id reminderssRecyclerView

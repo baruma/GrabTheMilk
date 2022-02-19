@@ -25,24 +25,20 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     private androidx.databinding.InverseBindingListener descriptionLabelandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of viewModel.reminder.getValue().description
-            //         is viewModel.reminder.getValue().setDescription((java.lang.String) callbackArg_0)
+            // Inverse of viewModel.reminder.description
+            //         is viewModel.reminder.setDescription((java.lang.String) callbackArg_0)
             java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(descriptionLabel);
             // localize variables for thread safety
-            // viewModel.reminder.getValue().description
+            // viewModel.reminder.description
             java.lang.String viewModelReminderDescription = null;
             // viewModel.reminder != null
             boolean viewModelReminderJavaLangObjectNull = false;
             // viewModel.reminder
-            androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO> viewModelReminder = null;
+            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminder = null;
             // viewModel
-            com.udacity.project4.locationreminders.savereminder.RemindersViewModel viewModel = mViewModel;
-            // viewModel.reminder.getValue()
-            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminderGetValue = null;
+            com.udacity.project4.locationreminders.DescriptionViewModel viewModel = mViewModel;
             // viewModel != null
             boolean viewModelJavaLangObjectNull = false;
-            // viewModel.reminder.getValue() != null
-            boolean viewModelReminderGetValueJavaLangObjectNull = false;
 
 
 
@@ -56,16 +52,9 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
                 if (viewModelReminderJavaLangObjectNull) {
 
 
-                    viewModelReminderGetValue = viewModelReminder.getValue();
-
-                    viewModelReminderGetValueJavaLangObjectNull = (viewModelReminderGetValue) != (null);
-                    if (viewModelReminderGetValueJavaLangObjectNull) {
 
 
-
-
-                        viewModelReminderGetValue.setDescription(((java.lang.String) (callbackArg_0)));
-                    }
+                    viewModelReminder.setDescription(((java.lang.String) (callbackArg_0)));
                 }
             }
         }
@@ -73,24 +62,20 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     private androidx.databinding.InverseBindingListener locationLabelandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of viewModel.reminder.getValue().location
-            //         is viewModel.reminder.getValue().setLocation((java.lang.String) callbackArg_0)
+            // Inverse of viewModel.reminder.location
+            //         is viewModel.reminder.setLocation((java.lang.String) callbackArg_0)
             java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(locationLabel);
             // localize variables for thread safety
-            // viewModel.reminder.getValue().location
+            // viewModel.reminder.location
             java.lang.String viewModelReminderLocation = null;
             // viewModel.reminder != null
             boolean viewModelReminderJavaLangObjectNull = false;
             // viewModel.reminder
-            androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO> viewModelReminder = null;
+            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminder = null;
             // viewModel
-            com.udacity.project4.locationreminders.savereminder.RemindersViewModel viewModel = mViewModel;
-            // viewModel.reminder.getValue()
-            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminderGetValue = null;
+            com.udacity.project4.locationreminders.DescriptionViewModel viewModel = mViewModel;
             // viewModel != null
             boolean viewModelJavaLangObjectNull = false;
-            // viewModel.reminder.getValue() != null
-            boolean viewModelReminderGetValueJavaLangObjectNull = false;
 
 
 
@@ -104,16 +89,9 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
                 if (viewModelReminderJavaLangObjectNull) {
 
 
-                    viewModelReminderGetValue = viewModelReminder.getValue();
-
-                    viewModelReminderGetValueJavaLangObjectNull = (viewModelReminderGetValue) != (null);
-                    if (viewModelReminderGetValueJavaLangObjectNull) {
 
 
-
-
-                        viewModelReminderGetValue.setLocation(((java.lang.String) (callbackArg_0)));
-                    }
+                    viewModelReminder.setLocation(((java.lang.String) (callbackArg_0)));
                 }
             }
         }
@@ -121,24 +99,20 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     private androidx.databinding.InverseBindingListener textLabelandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of viewModel.reminder.getValue().title
-            //         is viewModel.reminder.getValue().setTitle((java.lang.String) callbackArg_0)
+            // Inverse of viewModel.reminder.title
+            //         is viewModel.reminder.setTitle((java.lang.String) callbackArg_0)
             java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(textLabel);
             // localize variables for thread safety
             // viewModel.reminder != null
             boolean viewModelReminderJavaLangObjectNull = false;
-            // viewModel.reminder.getValue().title
+            // viewModel.reminder.title
             java.lang.String viewModelReminderTitle = null;
             // viewModel.reminder
-            androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO> viewModelReminder = null;
+            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminder = null;
             // viewModel
-            com.udacity.project4.locationreminders.savereminder.RemindersViewModel viewModel = mViewModel;
-            // viewModel.reminder.getValue()
-            com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminderGetValue = null;
+            com.udacity.project4.locationreminders.DescriptionViewModel viewModel = mViewModel;
             // viewModel != null
             boolean viewModelJavaLangObjectNull = false;
-            // viewModel.reminder.getValue() != null
-            boolean viewModelReminderGetValueJavaLangObjectNull = false;
 
 
 
@@ -152,16 +126,9 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
                 if (viewModelReminderJavaLangObjectNull) {
 
 
-                    viewModelReminderGetValue = viewModelReminder.getValue();
-
-                    viewModelReminderGetValueJavaLangObjectNull = (viewModelReminderGetValue) != (null);
-                    if (viewModelReminderGetValueJavaLangObjectNull) {
 
 
-
-
-                        viewModelReminderGetValue.setTitle(((java.lang.String) (callbackArg_0)));
-                    }
+                    viewModelReminder.setTitle(((java.lang.String) (callbackArg_0)));
                 }
             }
         }
@@ -171,7 +138,7 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
         this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
     }
     private FragmentDescriptionBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 1
+        super(bindingComponent, root, 0
             , (android.widget.TextView) bindings[1]
             , (android.widget.TextView) bindings[2]
             , (android.widget.TextView) bindings[3]
@@ -189,7 +156,7 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x4L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
@@ -208,7 +175,7 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.viewModel == variableId) {
-            setViewModel((com.udacity.project4.locationreminders.savereminder.RemindersViewModel) variable);
+            setViewModel((com.udacity.project4.locationreminders.DescriptionViewModel) variable);
         }
         else {
             variableSet = false;
@@ -216,10 +183,10 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
             return variableSet;
     }
 
-    public void setViewModel(@Nullable com.udacity.project4.locationreminders.savereminder.RemindersViewModel ViewModel) {
+    public void setViewModel(@Nullable com.udacity.project4.locationreminders.DescriptionViewModel ViewModel) {
         this.mViewModel = ViewModel;
         synchronized(this) {
-            mDirtyFlags |= 0x2L;
+            mDirtyFlags |= 0x1L;
         }
         notifyPropertyChanged(BR.viewModel);
         super.requestRebind();
@@ -228,17 +195,6 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
-            case 0 :
-                return onChangeViewModelReminder((androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO>) object, fieldId);
-        }
-        return false;
-    }
-    private boolean onChangeViewModelReminder(androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO> ViewModelReminder, int fieldId) {
-        if (fieldId == BR._all) {
-            synchronized(this) {
-                    mDirtyFlags |= 0x1L;
-            }
-            return true;
         }
         return false;
     }
@@ -251,13 +207,12 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
             mDirtyFlags = 0;
         }
         java.lang.String viewModelReminderDescription = null;
-        com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminderGetValue = null;
         java.lang.String viewModelReminderLocation = null;
         java.lang.String viewModelReminderTitle = null;
-        androidx.lifecycle.LiveData<com.udacity.project4.locationreminders.data.dto.ReminderDTO> viewModelReminder = null;
-        com.udacity.project4.locationreminders.savereminder.RemindersViewModel viewModel = mViewModel;
+        com.udacity.project4.locationreminders.data.dto.ReminderDTO viewModelReminder = null;
+        com.udacity.project4.locationreminders.DescriptionViewModel viewModel = mViewModel;
 
-        if ((dirtyFlags & 0x7L) != 0) {
+        if ((dirtyFlags & 0x3L) != 0) {
 
 
 
@@ -265,33 +220,26 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
                     // read viewModel.reminder
                     viewModelReminder = viewModel.getReminder();
                 }
-                updateLiveDataRegistration(0, viewModelReminder);
 
 
                 if (viewModelReminder != null) {
-                    // read viewModel.reminder.getValue()
-                    viewModelReminderGetValue = viewModelReminder.getValue();
-                }
-
-
-                if (viewModelReminderGetValue != null) {
-                    // read viewModel.reminder.getValue().description
-                    viewModelReminderDescription = viewModelReminderGetValue.getDescription();
-                    // read viewModel.reminder.getValue().location
-                    viewModelReminderLocation = viewModelReminderGetValue.getLocation();
-                    // read viewModel.reminder.getValue().title
-                    viewModelReminderTitle = viewModelReminderGetValue.getTitle();
+                    // read viewModel.reminder.description
+                    viewModelReminderDescription = viewModelReminder.getDescription();
+                    // read viewModel.reminder.location
+                    viewModelReminderLocation = viewModelReminder.getLocation();
+                    // read viewModel.reminder.title
+                    viewModelReminderTitle = viewModelReminder.getTitle();
                 }
         }
         // batch finished
-        if ((dirtyFlags & 0x7L) != 0) {
+        if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.descriptionLabel, viewModelReminderDescription);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.locationLabel, viewModelReminderLocation);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textLabel, viewModelReminderTitle);
         }
-        if ((dirtyFlags & 0x4L) != 0) {
+        if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.descriptionLabel, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, descriptionLabelandroidTextAttrChanged);
@@ -304,9 +252,8 @@ public class FragmentDescriptionBindingImpl extends FragmentDescriptionBinding  
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): viewModel.reminder
-        flag 1 (0x2L): viewModel
-        flag 2 (0x3L): null
+        flag 0 (0x1L): viewModel
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
 }

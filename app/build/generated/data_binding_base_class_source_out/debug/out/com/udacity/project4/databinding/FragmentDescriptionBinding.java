@@ -11,7 +11,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.udacity.project4.R;
-import com.udacity.project4.locationreminders.savereminder.RemindersViewModel;
+import com.udacity.project4.locationreminders.DescriptionViewModel;
 import java.lang.Deprecated;
 import java.lang.Object;
 
@@ -26,7 +26,7 @@ public abstract class FragmentDescriptionBinding extends ViewDataBinding {
   public final TextView textLabel;
 
   @Bindable
-  protected RemindersViewModel mViewModel;
+  protected DescriptionViewModel mViewModel;
 
   protected FragmentDescriptionBinding(Object _bindingComponent, View _root, int _localFieldCount,
       TextView descriptionLabel, TextView locationLabel, TextView textLabel) {
@@ -36,10 +36,10 @@ public abstract class FragmentDescriptionBinding extends ViewDataBinding {
     this.textLabel = textLabel;
   }
 
-  public abstract void setViewModel(@Nullable RemindersViewModel viewModel);
+  public abstract void setViewModel(@Nullable DescriptionViewModel viewModel);
 
   @Nullable
-  public RemindersViewModel getViewModel() {
+  public DescriptionViewModel getViewModel() {
     return mViewModel;
   }
 

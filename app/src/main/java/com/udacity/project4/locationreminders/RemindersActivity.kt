@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
+import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -73,14 +74,14 @@ class RemindersActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val intentForDescriptionScreen = Intent(this, ReminderDescriptionActivity::class.java)
+//        val intentForDescriptionScreen = Intent(this, DescriptionFragment::class.java)
 
         val dataBundle = Bundle()
         dataBundle.putSerializable("reminder", reminder)
 
         val pendingIntent = NavDeepLinkBuilder(this)
             .setGraph(R.navigation.nav_graph)
-            .setDestination(R.id.reminderDescriptionActivity)
+            .setDestination(R.id.descriptionFragment)
             .setArguments(dataBundle)
             .createPendingIntent()
 
@@ -138,5 +139,15 @@ class RemindersActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
+
+        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
+            val intent = Intent(context, DescriptionFragment::class.java)
+            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
+            return intent
+        }
     }
 }

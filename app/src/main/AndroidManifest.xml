@@ -40,9 +40,6 @@
             android:value="${GOOGLE_MAP_KEY}" />
 
         <activity
-            android:name=".locationreminders.ReminderDescriptionActivity"
-            android:exported="false" />
-        <activity
             android:name=".authentication.AuthenticationActivity"
             android:exported="true">
             <intent-filter>

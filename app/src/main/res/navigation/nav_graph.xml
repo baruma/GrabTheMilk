@@ -43,9 +43,9 @@
             android:id="@+id/action_mapsFragment_to_saveReminderFragment"
             app:destination="@id/saveReminderFragment" />
     </fragment>
-    <activity
-        android:id="@+id/reminderDescriptionActivity"
-        android:name="com.udacity.project4.locationreminders.ReminderDescriptionActivity"
-        android:label="ReminderDescriptionActivity" />
+    <fragment
+        android:id="@+id/descriptionFragment"
+        android:name="com.udacity.project4.locationreminders.DescriptionFragment"
+        android:label="DescriptionFragment" />
 
 </navigation>
