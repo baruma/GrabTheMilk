@@ -40,7 +40,6 @@ class RemindersActivity : AppCompatActivity() {
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)
@@ -69,19 +68,12 @@ class RemindersActivity : AppCompatActivity() {
         createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
     }
 
-    // Figure out if this is getting hit or not
-    // Create Intent and pass data from here to DetailView
     fun createNotificationForGeofence(reminder: ReminderDTO) {
         val intent = Intent(this, RemindersActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
         val intentForDescriptionScreen = Intent(this, ReminderDescriptionActivity::class.java)
-
-//        val pendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
-//            addNextIntentWithParentStack(intentForDescriptionScreen)
-//            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-//        }
 
         val dataBundle = Bundle()
         dataBundle.putSerializable("reminder", reminder)
@@ -91,9 +83,6 @@ class RemindersActivity : AppCompatActivity() {
             .setDestination(R.id.reminderDescriptionActivity)
             .setArguments(dataBundle)
             .createPendingIntent()
-
-       // val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        // Description does not have to be an activity - make it a Fragment since RemindersActivity already holds a lot of Fragments.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "ChannelID"

@@ -16,16 +16,16 @@
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-anydpi-v21/ic_add.xml"
     },
     {
-        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-anydpi-v21_ic_save.xml.flat",
-        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-anydpi-v21/ic_save.xml"
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/raw_map_style.json.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/raw/map_style.json"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/raw_map_style.json.flat",
-        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/raw/map_style.json"
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-anydpi-v21_ic_save.xml.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-anydpi-v21/ic_save.xml"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
@@ -44,20 +44,20 @@
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-mdpi/ic_launcher_background.png"
     },
     {
-        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_no_data.png.flat",
-        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_no_data.png"
-    },
-    {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_save.png.flat",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_save.png"
     },
     {
-        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_it_reminder.xml.flat",
-        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/it_reminder.xml"
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_no_data.png.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_no_data.png"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_it_reminder.xml.flat",
+        "source": "/Users/lianahaque/AndroidStudioProjects/starter/app/src/main/res/layout/it_reminder.xml"
     },
     {
         "merged": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/res/merged/debug/layout_fragment_save_reminder.xml.flat",

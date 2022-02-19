@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <!--Data item that holds the reminder details-->
         <variable
             name="viewModel"
             type="com.udacity.project4.locationreminders.savereminder.RemindersViewModel" />
@@ -24,6 +22,7 @@
             android:gravity="center"
             android:text="@={viewModel.reminder.description}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +35,7 @@
             android:gravity="center"
             android:text="@={viewModel.reminder.location}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +48,7 @@
             android:gravity="center"
             android:text="@={viewModel.reminder.title}"
             android:textSize="@dimen/text_size_large"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
