@@ -28,14 +28,6 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
     var location: PointOfInterest? = null
 
 
-//    val db = Room.databaseBuilder(
-//        applicationContext,
-//        AppDatabase::class.java, "database-name"
-//    ).build()
-
-//    val db = Room.databaseBuilder(app,  )
-
-
     /**
      * Clear the live data objects to start fresh next time the view model gets called
      */
@@ -113,7 +105,4 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
     }
 
-
-
-    // write coroutine code here.  viewmodels initiate the threading call but the repositories do the actual threading.
 }
