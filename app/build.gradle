@@ -142,7 +142,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
 
     // Firebase
-    implementation "com.firebaseui:firebase-ui-auth:7.1.1"
+    implementation "com.firebaseui:firebase-ui-auth:8.0.0"
+    androidTestImplementation "com.firebaseui:firebase-ui-auth:8.0.0"
 
     // Multidex
     implementation 'androidx.multidex:multidex:2.0.1'

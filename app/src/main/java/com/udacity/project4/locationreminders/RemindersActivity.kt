@@ -41,6 +41,14 @@ class RemindersActivity : AppCompatActivity() {
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val idList = intent.extras?.getStringArray("GEOFENCE_IDS") ?: emptyArray()
+        idList.forEach {
+            _viewModel.retrieveReminderUponUserEnteringPOI(it)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)

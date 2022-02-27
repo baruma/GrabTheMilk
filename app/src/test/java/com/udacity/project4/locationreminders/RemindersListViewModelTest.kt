@@ -1,9 +1,8 @@
-package com.udacity.project4.locationreminders.reminderslist
+package com.udacity.project4.locationreminders
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.udacity.project4.locationreminders.data.FakeDataSource
-import com.udacity.project4.locationreminders.data.ReminderDataSource
+import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 import org.junit.runner.RunWith
