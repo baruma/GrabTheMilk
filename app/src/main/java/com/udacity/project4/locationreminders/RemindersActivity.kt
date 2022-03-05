@@ -74,7 +74,7 @@ class RemindersActivity : AppCompatActivity() {
 
 
 
-        createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
+     //   createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
     }
 
     fun createNotificationForGeofence(reminder: ReminderDTO) {

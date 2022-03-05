@@ -1,23 +1,22 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
 import com.google.android.gms.maps.model.PointOfInterest
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseViewModel
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
-import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
     BaseViewModel(app) {
+
+    var showToastLiveData = MutableLiveData<String>()
+
     val reminderTitle = MutableLiveData<String>()
     val reminderDescription = MutableLiveData<String>()
     var reminderSelectedLocationStr = MutableLiveData<String>()
@@ -28,9 +27,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
     var location: PointOfInterest? = null
 
 
-    /**
-     * Clear the live data objects to start fresh next time the view model gets called
-     */
+    // test passed
     fun onClear() {
         reminderTitle.value = null
         reminderDescription.value = null
@@ -40,25 +37,28 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         longitude.value = null
     }
 
-    fun validateAndSaveReminder(reminderData: ReminderDataItem) {
-        if (validateEnteredData(reminderData)) {
-            saveReminder(reminderData)
-        }
-    }
+//    fun validateAndSaveReminder(reminderData: ReminderDataItem) {
+//        if (validateEnteredData(reminderData)) {
+//            saveReminder(reminderData)
+//        }
+//    }
 
     fun saveLocation(location: PointOfInterest) {
         this.location = location
-        selectedPOI.value = location
-        reminderSelectedLocationStr.value = location.name
-        latitude.value = location.latLng.latitude
-        longitude.value = location.latLng.longitude
-        Toast.makeText(app, "Don't forget your title and description!", Toast.LENGTH_LONG).show()
+//        selectedPOI.value = location
+//        reminderSelectedLocationStr.value = location.name
+//        latitude.value = location.latLng.latitude
+//        longitude.value = location.latLng.longitude
+//        showToastLiveData.value = "Don't forget your title and description!"
 
+        selectedPOI.postValue(location)
+        reminderSelectedLocationStr.postValue(location.name)
+        latitude.postValue(location.latLng.latitude)
+        longitude.postValue(location.latLng.longitude)
+        showToastLiveData.postValue("Don't forget your title and description!")
     }
 
-    /**
-     * Save the reminder to the data source
-     */
+
     fun saveReminder(reminderData: ReminderDataItem) {
         showLoading.value = true
         viewModelScope.launch {
@@ -72,9 +72,13 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
                     reminderData.id
                 )
             )
-            showLoading.value = false
-            showToast.value = app.getString(R.string.reminder_saved)
-            navigationCommand.value = NavigationCommand.Back
+
+//            showLoading.value = false
+//            showToast.value = app.getString(R.string.reminder_saved)
+//            navigationCommand.value = NavigationCommand.Back
+            showLoading.postValue(false)
+            showToast.postValue("Reminder Saved!")
+            navigationCommand.postValue(NavigationCommand.Back)
         }
     }
 
@@ -95,13 +99,16 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
     }
 
 
-    fun saveToDataSource(title :String,
-                                  description: String,
-                                  location :String,
-                                  latitude : Double,
-                                  longitude : Double)  {
+    fun saveToDataSource(
+        title: String,
+        description: String,
+        location: String,
+        latitude: Double,
+        longitude: Double,
+        id: String
+    )  {
         viewModelScope.launch {
-            dataSource.saveReminder(ReminderDTO(title, description, location, latitude, longitude))
+            dataSource.saveReminder(ReminderDTO(title, description, location, latitude, longitude, id))
         }
     }
 
