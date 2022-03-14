@@ -12,12 +12,14 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 import org.junit.runner.RunWith
+import org.koin.core.context.stopKoin
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -32,6 +34,10 @@ class SaveReminderViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
+    @After
+    fun tearDown() {
+        stopKoin()
+    }
 
     @Test
     fun testLoading() = runBlockingTest {
