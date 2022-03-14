@@ -31,6 +31,7 @@ import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -74,7 +75,7 @@ class RemindersActivityTest :
                 )
             }
             single {
-                SaveReminderViewModel(appContext, get())
+                SaveReminderViewModel(appContext, get(), Dispatchers.Main)
             }
             single { RemindersLocalRepository(get()) as ReminderDataSource }
             single { LocalDB.createRemindersDao(appContext) }

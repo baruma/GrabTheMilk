@@ -10,9 +10,14 @@ import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
+class SaveReminderViewModel(
+    val app: Application,
+    private val dataSource: ReminderDataSource,
+    private val dispatcher: CoroutineDispatcher
+) :
     BaseViewModel(app) {
 
     var showToastLiveData = MutableLiveData<String>()
@@ -61,7 +66,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
 
     fun saveReminder(reminderData: ReminderDataItem) {
         showLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             dataSource.saveReminder(
                 ReminderDTO(
                     reminderData.title,
@@ -77,7 +82,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
 //            showToast.value = app.getString(R.string.reminder_saved)
 //            navigationCommand.value = NavigationCommand.Back
             showLoading.postValue(false)
-            showToast.postValue("Reminder Saved!")
+            showToastLiveData.postValue("Reminder Saved!")
             navigationCommand.postValue(NavigationCommand.Back)
         }
     }
@@ -106,9 +111,18 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         latitude: Double,
         longitude: Double,
         id: String
-    )  {
+    ) {
         viewModelScope.launch {
-            dataSource.saveReminder(ReminderDTO(title, description, location, latitude, longitude, id))
+            dataSource.saveReminder(
+                ReminderDTO(
+                    title,
+                    description,
+                    location,
+                    latitude,
+                    longitude,
+                    id
+                )
+            )
         }
     }
 
