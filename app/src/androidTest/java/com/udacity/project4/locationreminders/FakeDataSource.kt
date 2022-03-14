@@ -13,12 +13,13 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
 
 
     var lastSavedReminder: ReminderDTO? = null
-    var shouldReturnError = false
 
+    private var shouldReturnError = false
 
-    fun setReturnError(value: Boolean) {
-        shouldReturnError = value
+    fun setShouldReturnError(shouldReturn: Boolean) {
+        this.shouldReturnError = shouldReturn
     }
+
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
         // Look at the original getReminders
@@ -69,6 +70,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
             Result.Error(exception.localizedMessage)
         }
      }
+
 
     override suspend fun deleteAllReminders() {
         reminders = mutableListOf() // gives out blank list

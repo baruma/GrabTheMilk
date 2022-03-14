@@ -68,6 +68,5 @@ class DaoTest {
         Truth.assertThat(savedReminder?.id).isEqualTo(reminderData.id)
     }
 
-    // How to do Data Not Found scenario
 
 }

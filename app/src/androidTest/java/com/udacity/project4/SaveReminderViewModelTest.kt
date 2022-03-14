@@ -29,17 +29,23 @@ import org.mockito.Mockito.mock
 @RunWith(AndroidJUnit4::class)
 class SaveReminderViewModelTest {
 
-//    private lateinit var fakeDataSource: FakeDataSource
-
-
     private var dataSource = FakeDataSource()
     private var saveReminderViewModel = SaveReminderViewModel(ApplicationProvider.getApplicationContext(), dataSource, Dispatchers.Main)
+
+    private var shouldReturnError = false
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
+
+    private fun testShouldReturnError(value: Boolean) {
+        dataSource.shouldReturnError(true)
+    }
+
+    // Test the BaseModel's function for loading.
+
 
     @Test
     @ExperimentalCoroutinesApi
@@ -104,10 +110,6 @@ class SaveReminderViewModelTest {
         Assert.assertTrue(true)
     }
 
-//    // I do not have functions that return error.  Just added this to fulfill your convulated requirement.
-//    fun testShouldReturnError() {
-//        dataSource.shouldReturnError(true)
-//    }
 
 }
 
