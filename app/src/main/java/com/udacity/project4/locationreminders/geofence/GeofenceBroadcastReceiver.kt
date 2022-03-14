@@ -1,14 +1,18 @@
 package com.udacity.project4.locationreminders.geofence
 
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
 import com.udacity.project4.authentication.AuthenticationActivity.Companion.TAG
+import com.udacity.project4.locationreminders.RemindersActivity
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 
 /**
@@ -22,7 +26,7 @@ import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
  */
 
 // Have viewmodel do what you're trying to do in the coroutine scope
-class GeofenceBroadcastReceiver(private val _viewModel: RemindersViewModel) : BroadcastReceiver() {
+class GeofenceBroadcastReceiver() : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
@@ -38,15 +42,24 @@ class GeofenceBroadcastReceiver(private val _viewModel: RemindersViewModel) : Br
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Toast.makeText(context, "Entered Geofence", Toast.LENGTH_SHORT)
             val triggeringGeofences = geofencingEvent.triggeringGeofences
-
+            val listOfIDs = /*mutableListOf<String>()
             triggeringGeofences.forEach {
-                _viewModel.retrieveReminderUponUserEnteringPOI(it.requestId)
-            }
+                listOfIDs.add(it.requestId)
+            }*/
 
+                triggeringGeofences.map { it.requestId }
+
+
+            val intent = Intent(context, RemindersActivity::class.java)
+            val bundle = Bundle()
+
+            bundle.putStringArray("GEOFENCE_IDS", listOfIDs.toTypedArray())
+            startActivity(context!!, intent, null)
 
         } else {
             // Log the error.
             Log.e(TAG, "Invalid Transition Type")
         }
     }
+
 }

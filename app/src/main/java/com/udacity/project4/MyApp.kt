@@ -9,6 +9,7 @@ import com.udacity.project4.locationreminders.reminderslist.RemindersListViewMod
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -48,7 +49,8 @@ class MyApp : Application() {
                 //This view model is declared singleton to be used across multiple fragments
                 SaveReminderViewModel(
                     androidApplication(),
-                    get()
+                    get(),
+                    Dispatchers.IO
                 )
             }
 

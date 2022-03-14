@@ -41,6 +41,14 @@ class RemindersActivity : AppCompatActivity() {
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val idList = intent.extras?.getStringArray("GEOFENCE_IDS") ?: emptyArray()
+        idList.forEach {
+            _viewModel.retrieveReminderUponUserEnteringPOI(it)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)
@@ -66,7 +74,7 @@ class RemindersActivity : AppCompatActivity() {
 
 
 
-        createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
+     //   createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
     }
 
     fun createNotificationForGeofence(reminder: ReminderDTO) {
