@@ -104,7 +104,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "com.google.truth:truth:$truthVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     // AndroidX Test - JVM testingandroidXTestCoreVersion
@@ -115,6 +114,7 @@ dependencies {
 
 
     // AndroidX Test - Instrumented testing
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
