@@ -1,17 +1,14 @@
-package com.udacity.project4
+package com.udacity.project4.locationreminders
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.common.truth.Truth.assertThat
-import com.udacity.project4.locationreminders.FakeDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
-import com.udacity.project4.util.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
@@ -29,19 +26,12 @@ class SaveReminderViewModelTest {
     private var dataSource = FakeDataSource()
     private var saveReminderViewModel = SaveReminderViewModel(ApplicationProvider.getApplicationContext(), dataSource, Dispatchers.Main)
 
-    private var shouldReturnError = false
-
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
-//    private fun testShouldReturnError(value: Boolean) {
-//        dataSource.shouldReturnError(true)
-//    }
-
-    // Test the BaseModel's function for loading.
 
     @Test
     fun testLoading() = runBlockingTest {

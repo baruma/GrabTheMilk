@@ -112,10 +112,11 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     testImplementation "androidx.test:rules:$androidXTestRulesVersion"
 
+    testImplementation "com.google.truth:truth:$truthVersion"
+
 
 
     // AndroidX Test - Instrumented testing
-    androidTestImplementation "com.google.truth:truth:$truthVersion"
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
