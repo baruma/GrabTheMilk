@@ -82,7 +82,7 @@ class SaveReminderFragment : BaseFragment() {
         val toastObserver = Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
-        _viewModel.showToastLiveData.observe(viewLifecycleOwner, toastObserver)
+        _viewModel.showToast.observe(viewLifecycleOwner, toastObserver)
     }
 
 

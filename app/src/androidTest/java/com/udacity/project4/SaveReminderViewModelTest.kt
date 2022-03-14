@@ -3,18 +3,17 @@ package com.udacity.project4
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.*
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PointOfInterest
-import com.udacity.project4.base.NavigationCommand
+import com.google.common.truth.Truth.assertThat
 import com.udacity.project4.locationreminders.FakeDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+import com.udacity.project4.util.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.*
 import org.junit.Assert
 import org.junit.Rule
@@ -22,8 +21,6 @@ import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -40,15 +37,23 @@ class SaveReminderViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
-    private fun testShouldReturnError(value: Boolean) {
-        dataSource.shouldReturnError(true)
-    }
+//    private fun testShouldReturnError(value: Boolean) {
+//        dataSource.shouldReturnError(true)
+//    }
 
     // Test the BaseModel's function for loading.
 
+    @Test
+    fun testLoading() = runBlockingTest {
+        mainCoroutineRule.pauseDispatcher()
+        saveReminderViewModel.saveToDataSource("Test Title", "Test Description", "SF", 22.22, 22.22, "RandomKey")
+        assertThat(saveReminderViewModel.showLoading.getOrAwaitValue()).isTrue()
+        mainCoroutineRule.resumeDispatcher()
+        assertThat(saveReminderViewModel.showLoading.getOrAwaitValue()).isFalse()
+
+    }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun testOnClear() = runBlockingTest {
         saveReminderViewModel.onClear()
         Assert.assertNull(saveReminderViewModel.reminderTitle.value)
@@ -98,9 +103,9 @@ class SaveReminderViewModelTest {
     @Test
     fun testReminderToast() = runBlockingTest {
         val reminder = ReminderDataItem("Title", "Description", "SF", 22.22, 22.22, "Key")
-        saveReminderViewModel.showToastLiveData.observeForever {  }
+        saveReminderViewModel.showToast.observeForever {  }
         saveReminderViewModel.saveReminder(reminder)
-        Assert.assertEquals(saveReminderViewModel.showToastLiveData.value, "Reminder Saved!")
+        Assert.assertEquals(saveReminderViewModel.showToast.value, "Reminder Saved!")
 
     }
 
@@ -109,7 +114,6 @@ class SaveReminderViewModelTest {
     fun testSuccess() {
         Assert.assertTrue(true)
     }
-
 
 }
 
@@ -129,3 +133,4 @@ class MainCoroutineRule(
         Dispatchers.resetMain()
     }
 }
+

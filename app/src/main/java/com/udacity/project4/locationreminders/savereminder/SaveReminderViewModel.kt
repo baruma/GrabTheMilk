@@ -20,7 +20,6 @@ class SaveReminderViewModel(
 ) :
     BaseViewModel(app) {
 
-    var showToastLiveData = MutableLiveData<String>()
 
     val reminderTitle = MutableLiveData<String>()
     val reminderDescription = MutableLiveData<String>()
@@ -60,7 +59,8 @@ class SaveReminderViewModel(
         reminderSelectedLocationStr.postValue(location.name)
         latitude.postValue(location.latLng.latitude)
         longitude.postValue(location.latLng.longitude)
-        showToastLiveData.postValue("Don't forget your title and description!")
+//        showToastLiveData.postValue("Don't forget your title and description!")
+        showToast.postValue("Don't forget your title and description!")
     }
 
 
@@ -78,11 +78,8 @@ class SaveReminderViewModel(
                 )
             )
 
-//            showLoading.value = false
-//            showToast.value = app.getString(R.string.reminder_saved)
-//            navigationCommand.value = NavigationCommand.Back
             showLoading.postValue(false)
-            showToastLiveData.postValue("Reminder Saved!")
+            showToast.postValue("Reminder Saved!")
             navigationCommand.postValue(NavigationCommand.Back)
         }
     }
@@ -112,6 +109,8 @@ class SaveReminderViewModel(
         longitude: Double,
         id: String
     ) {
+        showLoading.postValue(true)
+
         viewModelScope.launch {
             dataSource.saveReminder(
                 ReminderDTO(
@@ -123,7 +122,10 @@ class SaveReminderViewModel(
                     id
                 )
             )
+            showLoading.postValue(false)
         }
+
     }
+
 
 }
