@@ -2,6 +2,7 @@ package com.udacity.project4.locationreminders.savereminder
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
@@ -121,7 +122,6 @@ class SaveReminderFragment : BaseFragment() {
     }
 
     private fun getLocationPermission() {
-
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
@@ -135,6 +135,52 @@ class SaveReminderFragment : BaseFragment() {
             )
         }
     }
+
+    // TODO: Turn on foreground permissions
+    // TODO: Turn on background permissions
+
+    @TargetApi(29)
+    private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
+        val foregroundLocationApproved = (
+                PackageManager.PERMISSION_GRANTED ==
+                        ActivityCompat.checkSelfPermission(
+                            context!!,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ))
+        val backgroundPermissionApproved =
+            if (runningQOrLater) {
+                PackageManager.PERMISSION_GRANTED ==
+                        ActivityCompat.checkSelfPermission(
+                            context!!, Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                        )
+            } else {
+                true
+                // Create a dialog telling user the app experience would be better if they gave fore and background permissions.
+            }
+        return foregroundLocationApproved && backgroundPermissionApproved
+    }
+
+    @TargetApi(29)
+    private fun requestForegroundAndBackgroundLocationPermissions() {
+        if (foregroundAndBackgroundLocationPermissionApproved())
+            return
+        var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        val resultCode = when {
+            runningQOrLater -> {
+                permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
+            }
+            else -> REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
+        }
+        Log.d(TAG, "Request foreground only location permission")
+        requestPermissions(
+            permissionsArray,
+            resultCode
+        )
+    }
+
+    // TODO: Check if Device's Location is turned on
+    // TODO: Allow Geofencing if the above conditions are met
 
     @SuppressLint("MissingPermission")
     private fun getUserLocation() {
@@ -164,46 +210,6 @@ class SaveReminderFragment : BaseFragment() {
             }
         }
     }
-
-// UNUSED
-//    @TargetApi(29)
-//    private fun requestForegroundAndBackgroundLocationPermissions() {
-//        if (foregroundAndBackgroundLocationPermissionApproved())
-//            return
-//        var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-//        val resultCode = when {
-//            runningQOrLater -> {
-//                permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
-//                com.udacity.project4.maps.REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
-//            }
-//            else -> com.udacity.project4.maps.REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
-//        }
-//        Log.d(TAG, "Request foreground only location permission")
-//        requestPermissions(
-//            permissionsArray,
-//            resultCode
-//        )
-//    }
-
-//    @TargetApi(29)
-//    private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
-//        val foregroundLocationApproved = (
-//                PackageManager.PERMISSION_GRANTED ==
-//                        ActivityCompat.checkSelfPermission(
-//                            context!!,
-//                            Manifest.permission.ACCESS_FINE_LOCATION
-//                        ))
-//        val backgroundPermissionApproved =
-//            if (runningQOrLater) {
-//                PackageManager.PERMISSION_GRANTED ==
-//                        ActivityCompat.checkSelfPermission(
-//                            context!!, Manifest.permission.ACCESS_BACKGROUND_LOCATION
-//                        )
-//            } else {
-//                true
-//            }
-//        return foregroundLocationApproved && backgroundPermissionApproved
-//    }
 
 
     override fun onRequestPermissionsResult(
