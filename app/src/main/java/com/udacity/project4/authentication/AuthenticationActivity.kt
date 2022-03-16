@@ -28,6 +28,7 @@ class AuthenticationActivity : AppCompatActivity() {
         observeAuthenticationState()
         binding.loginButton.setOnClickListener ({launchSignInFlow()})  // Here so if it's a new user, they can create a new account.
         binding.registerButton.setOnClickListener({launchSignInFlow()})
+
 //       [x]  TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
 
 //     [x]     TODO: If the user was authenticated, send them to RemindersActivity
