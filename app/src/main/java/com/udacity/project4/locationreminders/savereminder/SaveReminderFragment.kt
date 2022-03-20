@@ -26,7 +26,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
@@ -38,7 +41,6 @@ import com.udacity.project4.maps.MapsFragment
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import kotlinx.android.synthetic.main.fragment_save_reminder.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.*
 
 
 class SaveReminderFragment : BaseFragment() {
