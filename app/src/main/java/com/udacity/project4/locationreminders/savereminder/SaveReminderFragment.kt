@@ -36,6 +36,7 @@ import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
+import com.udacity.project4.base.NavigationCommand.*
 import com.udacity.project4.databinding.FragmentSaveReminderBinding
 import com.udacity.project4.maps.MapsFragment
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
@@ -86,11 +87,15 @@ class SaveReminderFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
 
+        // I think it has something to do with the view model.
         binding.selectLocation.setOnClickListener {
+//            _viewModel.navigationCommand.value =
+//                To(
+//                    SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment()
+//                )
+
             _viewModel.navigationCommand.value =
-                NavigationCommand.To(
-                    SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment()
-                )
+                To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
         }
 
         binding.saveReminder.isEnabled =
@@ -137,7 +142,7 @@ class SaveReminderFragment : BaseFragment() {
             .setTitle("The location service is not enabled on the phone.")
             .setMessage("Go to Settings > Location information (enable location service).")
             .setNegativeButton(
-                "cancels"
+                "cancel"
             ) { dialogInterface, i -> }
             .setPositiveButton("Square that Away") { dialog, which ->
                 val intent = Intent()

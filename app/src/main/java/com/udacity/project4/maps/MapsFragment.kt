@@ -36,7 +36,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
     var gmapKey: String = BuildConfig.GOOGLE_MAP_KEY
 
-    private var map: GoogleMap? = null
+    private var map: GoogleMap = TODO()
     private var cameraPosition: CameraPosition? = null
 
     // The entry point to the Places API.
@@ -109,13 +109,13 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         }
 
 
-
         // Construct a PlacesClient
         Places.initialize(requireContext(), gmapKey)
         placesClient = Places.createClient(requireContext())
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
 
         // Build the map.
         val mapFragment = childFragmentManager
@@ -131,6 +131,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
     }
 
 
@@ -144,6 +145,14 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private fun saveLocation() {
         saveReminderViewModel.location = pointOfInterest
     }
+
+//    private fun setMapLongClick(googleMap: GoogleMap) {
+//        this.map = googleMap
+//        map.setOnMapLongClickListener {
+//            // What do you want to do after a person hits a location.
+//            Toast.makeText(requireContext(), "You long pressed!", Toast.LENGTH_LONG).show()
+//        }
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.normal_map -> {
@@ -212,7 +221,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 //            }
 //        }
 //    }
-
 
 
 }
