@@ -1,9 +1,11 @@
 package com.udacity.project4.locationreminders.reminderslist
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
 import androidx.databinding.DataBindingUtil
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
@@ -53,8 +55,12 @@ class ReminderListFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        //load the reminders list on the ui
-        _viewModel.loadReminders()
+
+        if (_viewModel.remindersList.value != null) {
+            _viewModel.loadReminders()
+        } else {
+            displayShowNoDataMessage()
+        }
     }
 
     private fun navigateToAddReminder() {
@@ -72,6 +78,15 @@ class ReminderListFragment : BaseFragment() {
 
 //        setup the recycler view using the extension function
         binding.reminderssRecyclerView.setup(adapter)
+    }
+
+    private fun displayShowNoDataMessage() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("There is no data to display.")
+            .setNegativeButton(
+                "alright"
+            ) { dialogInterface, i -> }
+            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

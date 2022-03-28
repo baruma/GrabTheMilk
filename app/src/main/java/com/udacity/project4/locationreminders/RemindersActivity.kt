@@ -30,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RemindersActivity : AppCompatActivity() {
 
-    lateinit var geofencingClient: GeofencingClient
+    private lateinit var geofencingClient: GeofencingClient
     val _viewModel: RemindersViewModel by viewModel()
     private var defaultLocation = LatLng(-33.8523341, 151.2106085)
     var geofenceList = mutableListOf<Geofence>()
@@ -72,17 +72,12 @@ class RemindersActivity : AppCompatActivity() {
 
         _viewModel.reminder.observe(this, reminderObserver)
 
-
-
-     //   createNotificationForGeofence(ReminderDTO("blah", "blah", "San Francisco", 222.2, 333.3, "sljflskdfjlksdjflk"))
     }
 
     fun createNotificationForGeofence(reminder: ReminderDTO) {
         val intent = Intent(this, RemindersActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-
-//        val intentForDescriptionScreen = Intent(this, DescriptionFragment::class.java)
 
         val dataBundle = Bundle()
         dataBundle.putSerializable("reminder", reminder)

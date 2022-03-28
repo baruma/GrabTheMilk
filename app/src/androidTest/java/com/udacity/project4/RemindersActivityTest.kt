@@ -2,15 +2,12 @@
 package com.udacity.project4
 
 import android.app.Application
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -22,12 +19,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PointOfInterest
 import com.udacity.project4.locationreminders.RemindersActivity
 import com.udacity.project4.locationreminders.data.ReminderDataSource
-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.local.LocalDB
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
-import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
@@ -127,11 +122,11 @@ class RemindersActivityTest :
 
         onView(ViewMatchers.withId(R.id.reminderTitle)).perform(typeText(reminderDataItem.title))
         onView(ViewMatchers.withId(R.id.reminderDescription)).perform(typeText(reminderDataItem.description))
-        viewModel.saveLocation(PointOfInterest(LatLng(0.0, 0.0), "Fake Title", "Fake description"))
+        viewModel.savePOI(PointOfInterest(LatLng(0.0, 0.0), "Fake Title", "Fake description"))
 
         onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard())
 
-        onView(ViewMatchers.withId(R.id.saveReminder)).perform(click())
+        onView(ViewMatchers.withId(R.id.saveReminderFAB)).perform(click())
 
         onView(ViewMatchers.withText(reminderDataItem.title)).check(matches(isDisplayed()))
         onView(ViewMatchers.withText(reminderDataItem.description)).check(matches(isDisplayed()))

@@ -22,8 +22,8 @@ interface RemindersDao {
      * @param reminderId the id of the reminder
      * @return the reminder object with the reminderId
      */
-    @Query("SELECT * FROM reminders where entry_id = :reminderId")
-    suspend fun getReminderById(reminderId: String): ReminderDTO?
+    @Query("SELECT * FROM reminders where location = :location")
+    suspend fun getReminderByLocation(location: String): ReminderDTO?
 
     /**
      * Insert a reminder in the database. If the reminder already exists, replace it.

@@ -57,7 +57,7 @@ class DaoTest {
     fun insertIntoDataBaseAndRetrieveByKey() = runBlockingTest {
         dao.saveReminder(reminderData)
 
-        val savedReminder = dao.getReminderById(reminderData.id)
+        val savedReminder = dao.getReminderByLocation(reminderData.id)
 
         Truth.assertThat(savedReminder).isNotNull()
         Truth.assertThat(savedReminder?.title).isEqualTo(reminderData.title)

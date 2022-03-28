@@ -44,9 +44,9 @@ class RemindersLocalRepository(
      * @param id to be used to get the reminder
      * @return Result the holds a Success object with the Reminder or an Error object with the error message
      */
-    override suspend fun getReminder(id: String): Result<ReminderDTO> = withContext(ioDispatcher) {
+    override suspend fun getReminder(location: String): Result<ReminderDTO> = withContext(ioDispatcher) {
         try {
-            val reminder = remindersDao.getReminderById(id)
+            val reminder = remindersDao.getReminderByLocation(location)
             if (reminder != null) {
                 return@withContext Result.Success(reminder)
             } else {

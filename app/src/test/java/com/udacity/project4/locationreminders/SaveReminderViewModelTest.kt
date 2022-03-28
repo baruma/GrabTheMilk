@@ -26,7 +26,11 @@ import org.koin.core.context.stopKoin
 class SaveReminderViewModelTest {
 
     private var dataSource = FakeDataSource()
-    private var saveReminderViewModel = SaveReminderViewModel(ApplicationProvider.getApplicationContext(), dataSource, Dispatchers.Main)
+    private var saveReminderViewModel = SaveReminderViewModel(
+        ApplicationProvider.getApplicationContext(),
+        dataSource,
+        Dispatchers.Main
+    )
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -42,7 +46,16 @@ class SaveReminderViewModelTest {
     @Test
     fun testLoading() = runBlockingTest {
         mainCoroutineRule.pauseDispatcher()
-        saveReminderViewModel.saveToDataSource("Test Title", "Test Description", "SF", 22.22, 22.22, "RandomKey")
+        saveReminderViewModel.saveReminder(
+            ReminderDataItem(
+                "Test Title",
+                "Test Description",
+                "SF",
+                22.22,
+                22.22,
+                "RandomKey"
+            )
+        )
         assertThat(saveReminderViewModel.showLoading.getOrAwaitValue()).isTrue()
         mainCoroutineRule.resumeDispatcher()
         assertThat(saveReminderViewModel.showLoading.getOrAwaitValue()).isFalse()
@@ -63,8 +76,10 @@ class SaveReminderViewModelTest {
     @Test
     fun testSaveReminder() = runBlockingTest {
         dataSource.saveReminder(
-            ReminderDTO("Test Title", "Test Description", "SF",
-            22.22, 22.22, "RandomStringID")
+            ReminderDTO(
+                "Test Title", "Test Description", "SF",
+                22.22, 22.22, "RandomStringID"
+            )
         )
     }
 
@@ -72,8 +87,8 @@ class SaveReminderViewModelTest {
     @Test
     fun testSaveLocation() = runBlockingTest {
         val poi = PointOfInterest(LatLng(22.22, 22.22), "test string", "another test string")
-        saveReminderViewModel.saveLocation(poi)
-        Assert.assertEquals(saveReminderViewModel.location, poi)
+        saveReminderViewModel.savePOI(poi)
+        Assert.assertEquals(saveReminderViewModel.poi, poi)
         Assert.assertEquals(saveReminderViewModel.reminderSelectedLocationStr.value, poi.name)
         Assert.assertEquals(saveReminderViewModel.latitude.value, poi.latLng.latitude)
         Assert.assertEquals(saveReminderViewModel.latitude.value, poi.latLng.longitude)
@@ -82,14 +97,16 @@ class SaveReminderViewModelTest {
 
     @Test
     fun testSaveToDataSource() = runBlockingTest {
-        val reminder = ReminderDTO("Test Title", "Test Description", "SF", 22.22, 22.22, "RandomKey")
-        saveReminderViewModel.saveToDataSource(
-            reminder.title!!,
-            reminder.description!!,
-            reminder.location!!,
-            reminder.latitude!!,
-            reminder.longitude!!,
-            reminder.id!!
+        val reminder =  ReminderDataItem(
+            "Test Title",
+            "Test Description",
+            "SF",
+            22.22,
+            22.22,
+            "RandomKey"
+        )
+        saveReminderViewModel.saveReminder(
+           reminder
         )
 
         Assert.assertEquals(dataSource.lastSavedReminder, reminder)
@@ -99,16 +116,10 @@ class SaveReminderViewModelTest {
     @Test
     fun testReminderToast() = runBlockingTest {
         val reminder = ReminderDataItem("Title", "Description", "SF", 22.22, 22.22, "Key")
-        saveReminderViewModel.showToast.observeForever {  }
+        saveReminderViewModel.showToast.observeForever { }
         saveReminderViewModel.saveReminder(reminder)
         Assert.assertEquals(saveReminderViewModel.showToast.value, "Reminder Saved!")
 
-    }
-
-    @Test
-    // dummy test - gradle issues
-    fun testSuccess() {
-        Assert.assertTrue(true)
     }
 
 }

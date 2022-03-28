@@ -1,31 +1,19 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.app.Application
-import android.app.PendingIntent
-import android.content.Intent
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER
-import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.PointOfInterest
-import com.udacity.project4.base.BaseViewModel
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
-import com.udacity.project4.locationreminders.data.local.RemindersDatabase
-import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
-class RemindersViewModel(
+class RemindersViewModel (
     app: Application, private val dataSource: ReminderDataSource
 ) : ViewModel() {
 
@@ -38,19 +26,18 @@ class RemindersViewModel(
         get() = _reminder
 
     private suspend fun fetchCoordinatesFromDB(): List<SimplePOI> {
-            val result = dataSource.getReminders()
+        val result = dataSource.getReminders()
         val coordinateList = mutableListOf<SimplePOI>()
 
         when (result) {
-                is Result.Success<List<ReminderDTO>> -> {
-                    result.data.forEach{
-                        val coordinate = SimplePOI(it.id, it.latitude!!, it.longitude!!)
-                        coordinateList.add(coordinate)
-                    }
+            is Result.Success<List<ReminderDTO>> -> {
+                result.data.forEach {
+                    val coordinate = SimplePOI(it.id, it.latitude!!, it.longitude!!)
+                    coordinateList.add(coordinate)
                 }
+            }
+            is Result.Error -> {
 
-            else -> {
-                return emptyList()
             }
         }
         return coordinateList
@@ -71,7 +58,6 @@ class RemindersViewModel(
                 addGeofences(listOf(poiToGeofence))
             }.build()
         }
-
     }
 
     // Need to learn how to test Geofences and entering them to test this function.
@@ -106,7 +92,7 @@ class RemindersViewModel(
             val result = dataSource.getReminder(id)
 
             when (result) {
-                is Result.Success <ReminderDTO> -> {
+                is Result.Success<ReminderDTO> -> {
                     _reminder.value = result.data
                 }
 
