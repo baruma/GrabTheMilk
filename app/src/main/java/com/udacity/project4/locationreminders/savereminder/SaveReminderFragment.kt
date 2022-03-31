@@ -121,7 +121,7 @@ class SaveReminderFragment : BaseFragment() {
         }
 
         binding.saveReminderFAB.setOnClickListener {
-            // create geofence
+
             saveReminder()
         }
 
@@ -184,17 +184,20 @@ class SaveReminderFragment : BaseFragment() {
         val location = _viewModel.reminderSelectedLocationStr.value
         val latitude = _viewModel.latitude.value
         val longitude = _viewModel.longitude.value
+        val reminderDTO = ReminderDataItem(
+            title,
+            description,
+            location,
+            latitude,
+            longitude
+        )
 
-        if (_viewModel.validateEnteredData(ReminderDataItem(title, description, location, latitude, longitude))) {
-
-            _viewModel.saveReminder(
-                ReminderDataItem(
-                    title,
-                    description,
-                    location,
-                    latitude,
-                    longitude
-                )
+        if (_viewModel.validateEnteredData(reminderDTO)) {
+            _viewModel.saveReminder(reminderDTO)
+            remindersViewModel.createGeofenceRequest(
+                reminderDTO.latitude!!,
+                reminderDTO.longitude!!,
+                reminderDTO.id
             )
 
             checkDeviceLocationSettingsAndStartGeofence()

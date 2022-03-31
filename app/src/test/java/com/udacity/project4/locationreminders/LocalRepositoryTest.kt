@@ -81,7 +81,7 @@ class LocalRepositoryTest {
     fun getReminderSuccess() = runBlocking {
         repository.saveReminder(reminder)
 
-        val result = repository.getReminder(reminder.id)
+        val result = repository.getReminderByID(reminder.id)
         Truth.assertThat(result).isInstanceOf(Result.Success::class.java)
 
         result as Result.Success

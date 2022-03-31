@@ -16,11 +16,6 @@ class RemindersListViewModel(
     // list that holds the reminder data to be displayed on the UI
     val remindersList = MutableLiveData<List<ReminderDataItem>>()
 
-    /**
-     * Get all the reminders from the DataSource and add them to the remindersList to be shown on the UI,
-     * or show error if any
-     */
-
     fun loadReminders() {
         showLoading.postValue(true)
         viewModelScope.launch {
@@ -44,11 +39,11 @@ class RemindersListViewModel(
                     remindersList.value = dataList
                 }
                 is Result.Error ->
-                    showSnackBar.value = result.message
+                    showErrorMessage.postValue("There is no data to display due to an error.")
+                    // showSnackBar.value = result.message
+
             }
 
-            //check if no data has to be shown
-            invalidateShowNoData()
         }
     }
 

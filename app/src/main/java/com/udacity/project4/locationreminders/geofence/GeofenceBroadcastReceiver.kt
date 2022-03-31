@@ -28,7 +28,11 @@ import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 // Have viewmodel do what you're trying to do in the coroutine scope
 class GeofenceBroadcastReceiver() : BroadcastReceiver() {
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    init {
+        Log.d("screaming", "Geofence broadcast receiver init")
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceStatusCodes
@@ -40,22 +44,7 @@ class GeofenceBroadcastReceiver() : BroadcastReceiver() {
         val geofenceTransition = geofencingEvent.geofenceTransition
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            Toast.makeText(context, "Entered Geofence", Toast.LENGTH_SHORT)
-            val triggeringGeofences = geofencingEvent.triggeringGeofences
-            val listOfIDs = /*mutableListOf<String>()
-            triggeringGeofences.forEach {
-                listOfIDs.add(it.requestId)
-            }*/
-
-                triggeringGeofences.map { it.requestId }
-
-
-            val intent = Intent(context, RemindersActivity::class.java)
-            val bundle = Bundle()
-
-            bundle.putStringArray("GEOFENCE_IDS", listOfIDs.toTypedArray())
-            startActivity(context!!, intent, null)
-
+            GeofenceTransitionsJobIntentService.enqueueWork(context, intent)
         } else {
             // Log the error.
             Log.e(TAG, "Invalid Transition Type")

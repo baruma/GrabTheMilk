@@ -1,5 +1,6 @@
 package com.udacity.project4.locationreminders
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.JobIntentService
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
+import com.udacity.project4.locationreminders.geofence.GeofenceTransitionsJobIntentService
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
@@ -56,6 +59,7 @@ class RemindersActivity : AppCompatActivity() {
         geofencingClient = LocationServices.getGeofencingClient(this)
 
         // Create the observer which updates the UI.
+        // FLOW ENDS HERE
         val geofenceRequestObserver = Observer<GeofencingRequest> { geofenceRequest ->
             addGeofence(geofenceRequest, geofencePendingIntent)
         }
@@ -67,60 +71,71 @@ class RemindersActivity : AppCompatActivity() {
 
         val reminderObserver = Observer<ReminderDTO> {
 
-            createNotificationForGeofence(it)
+      //      createNotificationForGeofence(it)
         }
 
         _viewModel.reminder.observe(this, reminderObserver)
 
+
     }
 
-    fun createNotificationForGeofence(reminder: ReminderDTO) {
-        val intent = Intent(this, RemindersActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+//    fun onStartJobIntentService() {
+//        val mIntent = Intent(this, GeofenceTransitionsJobIntentService::class.java)
+//        mIntent.putExtra("secret", "nononon")
+////        MyJobIntentService.enqueueWork(this, mIntent)
+//
+//        GeofenceTransitionsJobIntentService.enqueueWork(this, mIntent)
+//    }
 
-        val dataBundle = Bundle()
-        dataBundle.putSerializable("reminder", reminder)
+//    fun createNotificationForGeofence(reminder: ReminderDTO) {
+//        val intent = Intent(this, RemindersActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//
+//        val dataBundle = Bundle()
+//        dataBundle.putSerializable("reminder", reminder)
+//
+//        val pendingIntent = NavDeepLinkBuilder(this)
+//            .setGraph(R.navigation.nav_graph)
+//            .setDestination(R.id.descriptionFragment)
+//            .setArguments(dataBundle)
+//            .createPendingIntent()
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val name = "ChannelID"
+//            val descriptionText = "Channel Description"
+//            val importance = NotificationManager.IMPORTANCE_HIGH
+//            val channel = NotificationChannel("ChannelID", name, importance).apply {
+//                description = descriptionText
+//            }
+//            // Register the channel with the system
+//            val notificationManager: NotificationManager =
+//                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//        var builder = NotificationCompat.Builder(this, "ChannelID")
+//            .setContentTitle(reminder.title)
+//            .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+//            .setContentText(reminder.location)
+//            .setStyle(NotificationCompat.BigTextStyle()
+//                .bigText(reminder.description))
+//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//            .setContentIntent(pendingIntent)
+//
+//        with(NotificationManagerCompat.from(this)) {
+//            // notificationId is a unique int for each notification that you must define
+//            notify(1, builder.build())
+//        }
+//    }
 
-        val pendingIntent = NavDeepLinkBuilder(this)
-            .setGraph(R.navigation.nav_graph)
-            .setDestination(R.id.descriptionFragment)
-            .setArguments(dataBundle)
-            .createPendingIntent()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "ChannelID"
-            val descriptionText = "Channel Description"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("ChannelID", name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-        var builder = NotificationCompat.Builder(this, "ChannelID")
-            .setContentTitle(reminder.title)
-            .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-            .setContentText(reminder.location)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(reminder.description))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
-
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
-        }
-    }
-
+    @SuppressLint("MissingPermission")
     fun addGeofence(request: GeofencingRequest, intent: PendingIntent) {
         geofencingClient.addGeofences(request, intent).run {
             addOnSuccessListener {
                 Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
             }
             addOnFailureListener {
+
                 Toast.makeText(applicationContext, "Geofence Failed to Save", Toast.LENGTH_SHORT).show()
             }
         }

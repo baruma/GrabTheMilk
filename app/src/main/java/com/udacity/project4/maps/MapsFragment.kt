@@ -216,8 +216,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             if (task.isSuccessful) {
                 // Set the map's camera position to the current location of the device.
                 lastKnownLocation = task.result
-                Log.d("SCREAMING", task.toString())
-                Log.d("SCREAMING", task.result.toString())
+
                 Log.d("SCREAMING", lastKnownLocation.toString())
                 if (lastKnownLocation != null) {
                     map?.moveCamera(

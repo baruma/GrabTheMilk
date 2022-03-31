@@ -70,7 +70,7 @@ class RemindersViewModel (
                     Geofence.Builder().setCircularRegion(it.latitude!!, it.longitude!!, 100f)
                         .setExpirationDuration(
                             Geofence.NEVER_EXPIRE
-                        ).setRequestId(it.name)  // put poi name in here
+                        ).setRequestId(it.id)  // put poi name in here
                         .setTransitionTypes(GEOFENCE_TRANSITION_ENTER)
                         .build()
                 geofences.add(poiToGeofence)
@@ -89,7 +89,7 @@ class RemindersViewModel (
 
     fun retrieveReminderUponUserEnteringPOI(id: String) {
         viewModelScope.launch {
-            val result = dataSource.getReminder(id)
+            val result = dataSource.getReminderByID(id)
 
             when (result) {
                 is Result.Success<ReminderDTO> -> {
@@ -104,7 +104,5 @@ class RemindersViewModel (
     }
 
 
-    class SimplePOI(val name: String, val latitude: Double, val longitude: Double)
+    class SimplePOI(val id: String, val latitude: Double, val longitude: Double)
 }
-
-// Left off on transitions

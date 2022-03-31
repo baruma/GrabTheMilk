@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.R
@@ -44,6 +45,7 @@ class ReminderListFragment : BaseFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
@@ -51,16 +53,19 @@ class ReminderListFragment : BaseFragment() {
         binding.addReminderFAB.setOnClickListener {
             navigateToAddReminder()
         }
+
+        val snackBarErrorObserver = Observer<String> {
+            Snackbar.make(view, it, Snackbar.LENGTH_LONG).show()
+        }
+
+        _viewModel.showErrorMessage.observe(viewLifecycleOwner, snackBarErrorObserver)
+        
     }
 
     override fun onResume() {
         super.onResume()
 
-        if (_viewModel.remindersList.value != null) {
-            _viewModel.loadReminders()
-        } else {
-            displayShowNoDataMessage()
-        }
+        _viewModel.loadReminders()
     }
 
     private fun navigateToAddReminder() {
