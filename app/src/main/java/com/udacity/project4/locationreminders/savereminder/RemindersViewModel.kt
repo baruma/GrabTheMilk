@@ -1,6 +1,5 @@
 package com.udacity.project4.locationreminders.savereminder
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +12,8 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 import kotlinx.coroutines.launch
 
-class RemindersViewModel (
-    app: Application, private val dataSource: ReminderDataSource
+class RemindersViewModel(
+    private val dataSource: ReminderDataSource
 ) : ViewModel() {
 
     private val _geofenceRequest = MutableLiveData<GeofencingRequest>()
@@ -43,9 +42,7 @@ class RemindersViewModel (
         return coordinateList
     }
 
-    // pass in an id here
     fun createGeofenceRequest(latitude: Double, longitude: Double, location: String) {
-
         viewModelScope.launch {
             val poiToGeofence = Geofence.Builder()
                 .setCircularRegion(latitude!!, longitude!!, 100f)
@@ -60,11 +57,9 @@ class RemindersViewModel (
         }
     }
 
-    // Need to learn how to test Geofences and entering them to test this function.
     fun createGeofenceRequestForExistingPOI() {
         viewModelScope.launch {
-            var geofences = mutableListOf<Geofence>()
-
+            val geofences = mutableListOf<Geofence>()
             fetchCoordinatesFromDB().forEach {
                 val poiToGeofence =
                     Geofence.Builder().setCircularRegion(it.latitude!!, it.longitude!!, 100f)
@@ -82,9 +77,7 @@ class RemindersViewModel (
                     addGeofences(geofences)
                 }.build()
             }
-
         }
-
     }
 
     fun retrieveReminderUponUserEnteringPOI(id: String) {
@@ -95,14 +88,10 @@ class RemindersViewModel (
                 is Result.Success<ReminderDTO> -> {
                     _reminder.value = result.data
                 }
-
-                else -> {
-
-                }
+                // TODO: handle Result.error
             }
         }
     }
-
 
     class SimplePOI(val id: String, val latitude: Double, val longitude: Double)
 }

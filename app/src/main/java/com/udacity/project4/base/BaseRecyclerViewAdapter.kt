@@ -1,5 +1,6 @@
 package com.udacity.project4.base
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -37,6 +38,8 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
         holder.bind(item)
         holder.itemView.setOnClickListener {
             callback?.invoke(item)
+
+            Log.d("SCREAMING", item.toString())
         }
     }
 
@@ -66,5 +69,5 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
     open fun getLifecycleOwner(): LifecycleOwner? {
         return null
     }
-}
 
+}

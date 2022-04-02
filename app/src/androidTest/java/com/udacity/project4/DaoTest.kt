@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@SmallTest
+//@SmallTest
 class DaoTest {
 
     private val reminderData = ReminderDTO(
@@ -43,7 +43,8 @@ class DaoTest {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             RemindersDatabase::class.java
-        ).build()
+        ).allowMainThreadQueries()
+            .build()
 
         dao = database.reminderDao()
     }

@@ -114,7 +114,6 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     testImplementation "androidx.test:rules:$androidXTestRulesVersion"
 
-    testImplementation "com.google.truth:truth:$truthVersion"
 
 
 
@@ -153,4 +152,7 @@ dependencies {
 
     // Multidex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Truth
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
 }

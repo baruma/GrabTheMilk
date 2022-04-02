@@ -13,6 +13,7 @@ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepositor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -29,12 +30,17 @@ class LocalRepositoryTest {
     private lateinit var database: RemindersDatabase
     private lateinit var repository: RemindersLocalRepository
 
+    private var shouldReturnFalse = false
+
+    fun setReturnError(value: Boolean) {
+        shouldReturnFalse = value
+    }
+
     // Executes each task synchronously using Architecture Components.
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-
-    private val reminder = ReminderDTO(
+    private val reminder = ReminderDTO (
         title = "Title Test",
         description = "Description Test",
         location = "SF",
@@ -66,7 +72,7 @@ class LocalRepositoryTest {
     fun saveReminderSuccess() = runBlocking {
         repository.saveReminder(reminder)
 
-
+//        val reminder = repository.saveReminder(reminder)
         val result = repository.getReminders()
         Truth.assertThat(result).isInstanceOf(Result.Success::class.java)
 
@@ -94,6 +100,25 @@ class LocalRepositoryTest {
         Truth.assertThat(result.data.longitude).isEqualTo(reminder.longitude)
         Truth.assertThat(result.data.id).isEqualTo(reminder.id)
     }
+
+    @Test
+    fun getRemindersFailure() = runBlocking {
+        val result = repository.getReminderByID(reminder.id)
+        Truth.assertThat(result).isInstanceOf(Result.Error::class.java)
+
+        result as Result.Error
+        setReturnError(false)
+    }
+
+
+
+//    override suspend fun getReminders(): Result<List<ReminderDTO>> = withContext(ioDispatcher) {
+//        return@withContext try {
+//            Result.Success(remindersDao.getReminders())
+//        } catch (ex: Exception) {
+//            Result.Error(ex.localizedMessage)
+//        }
+//    }
 
 
 }

@@ -13,20 +13,17 @@ class RemindersListViewModel(
     app: Application,
     private val dataSource: ReminderDataSource
 ) : BaseViewModel(app) {
-    // list that holds the reminder data to be displayed on the UI
     val remindersList = MutableLiveData<List<ReminderDataItem>>()
 
     fun loadReminders() {
         showLoading.postValue(true)
         viewModelScope.launch {
-            //interacting with the dataSource has to be through a coroutine
             val result = dataSource.getReminders()
             showLoading.postValue(false)
             when (result) {
-                is Result.Success<*> -> {
+                is Result.Success<List<ReminderDTO>> -> {
                     val dataList = ArrayList<ReminderDataItem>()
-                    dataList.addAll((result.data as List<ReminderDTO>).map { reminder ->
-                        //map the reminder data from the DB to the be ready to be displayed on the UI
+                    dataList.addAll(result.data.map { reminder ->
                         ReminderDataItem(
                             reminder.title,
                             reminder.description,
@@ -36,22 +33,12 @@ class RemindersListViewModel(
                             reminder.id
                         )
                     })
-                    remindersList.value = dataList
+                    remindersList.postValue(dataList)
                 }
                 is Result.Error ->
                     showErrorMessage.postValue("There is no data to display due to an error.")
-                    // showSnackBar.value = result.message
-
             }
 
         }
     }
-
-    /**
-     * Inform the user that there's not any data if the remindersList is empty
-     */
-    private fun invalidateShowNoData() {
-        showNoData.value = remindersList.value == null || remindersList.value!!.isEmpty()
-    }
-
 }

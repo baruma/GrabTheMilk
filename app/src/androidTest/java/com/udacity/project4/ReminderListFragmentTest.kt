@@ -6,10 +6,12 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -109,7 +111,20 @@ class ReminderListFragmentTest {
         verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.to_save_reminder))
     }
 
-    // Testing for Snackbar and Toast messages. - Figure out how to do this with Toast message being fed from ViewModel
+
+    // How do test this without the ID of the ViewHolder?
+    fun testNavigationToReminderDescriptionFragment() {
+        val mockNavController = mock(NavController::class.java)
+
+        val reminderListScenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+        reminderListScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), mockNavController)
+
+            Espresso.onView(ViewMatchers.withId(R.id.reminderssRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
+            verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.action_reminderListFragment_to_descriptionFragment))
+
+        }
+    }
 
 }
 

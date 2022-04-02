@@ -1,22 +1,19 @@
 //package com.udacity.project4
 //
 //import android.os.IBinder
-//
 //import android.view.WindowManager
 //import androidx.test.espresso.Espresso
 //import androidx.test.espresso.Root
 //import androidx.test.espresso.action.ViewActions
 //import androidx.test.espresso.assertion.ViewAssertions
 //import androidx.test.espresso.matcher.ViewMatchers
-//import org.hamcrest.Description
-//import org.hamcrest.TypeSafeMatcher
-//
 //import androidx.test.ext.junit.runners.AndroidJUnit4
 //import androidx.test.filters.MediumTest
 //import com.google.android.gms.maps.model.LatLng
 //import com.google.android.gms.maps.model.PointOfInterest
-//import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 //import kotlinx.coroutines.ExperimentalCoroutinesApi
+//import org.hamcrest.Description
+//import org.hamcrest.TypeSafeMatcher
 //import org.junit.Test
 //import org.junit.runner.RunWith
 //

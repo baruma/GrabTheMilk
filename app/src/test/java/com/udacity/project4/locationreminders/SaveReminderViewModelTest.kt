@@ -83,9 +83,8 @@ class SaveReminderViewModelTest {
         )
     }
 
-
     @Test
-    fun testSaveLocation() = runBlockingTest {
+    fun savePOI() = runBlockingTest {
         val poi = PointOfInterest(LatLng(22.22, 22.22), "test string", "another test string")
         saveReminderViewModel.savePOI(poi)
         Assert.assertEquals(saveReminderViewModel.poi, poi)
@@ -94,6 +93,16 @@ class SaveReminderViewModelTest {
         Assert.assertEquals(saveReminderViewModel.latitude.value, poi.latLng.longitude)
     }
 
+    @Test
+    fun saveCustomLocation() = runBlockingTest {
+        val coordinates = LatLng(22.22, 22.22)
+
+        saveReminderViewModel.saveCustomLocation(coordinates)
+        Assert.assertEquals(saveReminderViewModel.selectedPOI.value!!.latLng, coordinates)
+        Assert.assertEquals(saveReminderViewModel.reminderSelectedLocationStr.value, SaveReminderViewModel.customPinName)
+        Assert.assertEquals(saveReminderViewModel.latitude.value, coordinates.latitude)
+        Assert.assertEquals(saveReminderViewModel.longitude.value, coordinates.longitude)
+    }
 
     @Test
     fun testSaveToDataSource() = runBlockingTest {
@@ -109,7 +118,12 @@ class SaveReminderViewModelTest {
            reminder
         )
 
-        Assert.assertEquals(dataSource.lastSavedReminder, reminder)
+        Assert.assertEquals(reminder.title, dataSource.lastSavedReminder!!.title)
+        Assert.assertEquals(reminder.description, dataSource.lastSavedReminder!!.description)
+        Assert.assertEquals(reminder.location, dataSource.lastSavedReminder!!.location)
+        Assert.assertEquals(reminder.latitude, dataSource.lastSavedReminder!!.latitude)
+        Assert.assertEquals(reminder.longitude, dataSource.lastSavedReminder!!.longitude)
+        Assert.assertEquals(reminder.id, dataSource.lastSavedReminder!!.id)
 
     }
 
@@ -119,7 +133,6 @@ class SaveReminderViewModelTest {
         saveReminderViewModel.showToast.observeForever { }
         saveReminderViewModel.saveReminder(reminder)
         Assert.assertEquals(saveReminderViewModel.showToast.value, "Reminder Saved!")
-
     }
 
 }

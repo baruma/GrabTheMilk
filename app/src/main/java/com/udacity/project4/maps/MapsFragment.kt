@@ -32,34 +32,23 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private lateinit var binding: FragmentMapsBinding
     val saveReminderViewModel: SaveReminderViewModel by inject()
 
-
-    private val TAG = MapsActivity::class.java.simpleName
+    private val TAG = MapsFragment::class.java.simpleName
     private val KEY_CAMERA_POSITION = "camera_position"
 
-    private val runningQOrLater =
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
     private var gmapKey: String = BuildConfig.GOOGLE_MAP_KEY
 
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
-
-    // The entry point to the Places API.
     private lateinit var placesClient: PlacesClient
-
-    // The entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
+    private val zoom = 15.0f
+
     // A default location (Sydney, Australia) and default zoom to use when location permission is
-    // not granted.
     private var defaultLocation = LatLng(-33.8523341, 151.2106085)
-
     private var lastKnownLocation: Location? = null
-
-    // This needs to be MutableDataSource
     private var pointOfInterest: PointOfInterest? = null
 
-
-    // We were working on Mutable Live Data between fragments and ViewModels
     override fun onPoiClick(poi: PointOfInterest) {
         Toast.makeText(context, """Clicked: ${poi.name}
             Place ID:${poi.placeId}
@@ -76,8 +65,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         )
 
         saveReminderViewModel.savePOI(poi)
-
-        //navigate back
         findNavController().popBackStack()
     }
 
@@ -91,17 +78,13 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                     LatLng(
                         lastKnownLocation!!.latitude,
                         lastKnownLocation!!.longitude
-                    ), 15.0f
+                    ), zoom
                 )
             )
         }
 
         googleMap.setOnPoiClickListener(this)
-
         googleMap.setOnMapLongClickListener { latLng ->
-            // googleMap.clear()
-
-            // A Snippet is Additional text that's displayed below the title.
             val snippet = String.format(
                 Locale.getDefault(),
                 "Lat: %1$.5f, Long: %2$.5f",
@@ -118,13 +101,10 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             saveReminderViewModel.saveCustomLocation(latLng)
             findNavController().popBackStack()
         }
-
-      //  googleMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.map_options, menu)
-
     }
 
     override fun onCreateView(
@@ -139,18 +119,13 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getUserLocation()
 
-
-        // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
 
-
-        // Construct a PlacesClient
         Places.initialize(requireContext(), gmapKey)
         placesClient = Places.createClient(requireContext())
 
-        // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
@@ -163,7 +138,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         mapFragment?.getMapAsync(callback)
     }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->
             outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
@@ -173,19 +147,19 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.normal_map -> {
-            map!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+            map?.mapType = GoogleMap.MAP_TYPE_NORMAL
             true
         }
         R.id.hybrid_map -> {
-            map!!.mapType = GoogleMap.MAP_TYPE_HYBRID
+            map?.mapType = GoogleMap.MAP_TYPE_HYBRID
             true
         }
         R.id.satellite_map -> {
-            map!!.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            map?.mapType = GoogleMap.MAP_TYPE_SATELLITE
             true
         }
         R.id.terrain_map -> {
-            map!!.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            map?.mapType = GoogleMap.MAP_TYPE_TERRAIN
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -214,17 +188,17 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         val locationResult = fusedLocationProviderClient.lastLocation
         locationResult.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
-                // Set the map's camera position to the current location of the device.
                 lastKnownLocation = task.result
 
                 Log.d("SCREAMING", lastKnownLocation.toString())
-                if (lastKnownLocation != null) {
+
+                lastKnownLocation?.run {
                     map?.moveCamera(
                         CameraUpdateFactory.newLatLngZoom(
                             LatLng(
-                                lastKnownLocation!!.latitude,
-                                lastKnownLocation!!.longitude
-                            ), 12.0f
+                                latitude,
+                                longitude
+                            ), zoom
                         )
                     )
                 }
@@ -233,7 +207,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                 Log.e(TAG, "Exception: %s", task.exception)
                 map?.moveCamera(
                     CameraUpdateFactory
-                        .newLatLngZoom(defaultLocation, 12.0f)
+                        .newLatLngZoom(defaultLocation, zoom)
                 )
                 map?.uiSettings?.isMyLocationButtonEnabled = false
             }

@@ -52,7 +52,7 @@ class SaveReminderViewModel(
         val location = PointOfInterest(coordinates, "someId", "Dropped Pin")
         this.poi = location
         selectedPOI.postValue(location)
-        reminderSelectedLocationStr.postValue("Dropped Pin")
+        reminderSelectedLocationStr.postValue(customPinName)
         latitude.postValue(coordinates.latitude)
         longitude.postValue(coordinates.longitude)
     }
@@ -77,7 +77,6 @@ class SaveReminderViewModel(
             }
     }
 
-
     fun validateEnteredData(reminderData: ReminderDataItem): Boolean {
         if (reminderData.title.isNullOrEmpty()) {
             showSnackBarInt.postValue(R.string.err_enter_title)
@@ -96,4 +95,7 @@ class SaveReminderViewModel(
         return true
     }
 
+    companion object {
+        val customPinName = "Dropped Pin"
+    }
 }
