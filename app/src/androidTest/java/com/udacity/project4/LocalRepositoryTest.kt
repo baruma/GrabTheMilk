@@ -110,8 +110,6 @@ class LocalRepositoryTest {
         setReturnError(false)
     }
 
-
-
 //    override suspend fun getReminders(): Result<List<ReminderDTO>> = withContext(ioDispatcher) {
 //        return@withContext try {
 //            Result.Success(remindersDao.getReminders())
@@ -119,6 +117,5 @@ class LocalRepositoryTest {
 //            Result.Error(ex.localizedMessage)
 //        }
 //    }
-
 
 }

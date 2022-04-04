@@ -111,7 +111,6 @@ class ReminderListFragmentTest {
         verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.to_save_reminder))
     }
 
-
     // How do test this without the ID of the ViewHolder?
     fun testNavigationToReminderDescriptionFragment() {
         val mockNavController = mock(NavController::class.java)

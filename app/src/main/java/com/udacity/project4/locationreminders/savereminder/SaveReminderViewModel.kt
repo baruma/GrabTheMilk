@@ -45,7 +45,7 @@ class SaveReminderViewModel(
         reminderSelectedLocationStr.postValue(location.name)
         latitude.postValue(location.latLng.latitude)
         longitude.postValue(location.latLng.longitude)
-        showToast.postValue("Don't forget your title and description!")
+        showSnackbar.postValue("Don't forget your title and description!")
     }
 
     fun saveCustomLocation(coordinates: LatLng) {
@@ -72,7 +72,7 @@ class SaveReminderViewModel(
                 )
 
                 showLoading.postValue(false)
-                showToast.postValue("Reminder Saved!")
+                showSnackbar.postValue("Reminder Saved!")
                 navigationCommand.postValue(NavigationCommand.Back)
             }
     }

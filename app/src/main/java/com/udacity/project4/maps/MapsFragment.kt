@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.databinding.FragmentMapsBinding
@@ -50,11 +51,11 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private var pointOfInterest: PointOfInterest? = null
 
     override fun onPoiClick(poi: PointOfInterest) {
-        Toast.makeText(context, """Clicked: ${poi.name}
+        Snackbar.make(requireView(), """Clicked: ${poi.name}
             Place ID:${poi.placeId}
             Latitude:${poi.latLng.latitude}
             Longitude:${poi.latLng.longitude}""",
-            Toast.LENGTH_LONG
+            Snackbar.LENGTH_LONG
         ).show()
 
         pointOfInterest = poi
@@ -114,7 +115,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     ): View {
         setHasOptionsMenu(true)
 
-        Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_SHORT).show()
+        Snackbar.make(requireView(), "Please choose a place for your reminder.", Snackbar.LENGTH_LONG).show()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getUserLocation()

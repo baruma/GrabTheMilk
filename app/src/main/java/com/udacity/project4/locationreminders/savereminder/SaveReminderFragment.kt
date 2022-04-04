@@ -16,7 +16,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -107,10 +106,10 @@ class SaveReminderFragment : BaseFragment() {
             foregroundAndBackgroundLocationPermissionApproved()
         }
 
-        val toastObserver = Observer<String> {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        val snackbarObserver = Observer<String> {
+            Snackbar.make(view, it, Snackbar.LENGTH_LONG).show()
         }
-        _viewModel.showToast.observe(viewLifecycleOwner, toastObserver)
+        _viewModel.showSnackbar.observe(viewLifecycleOwner, snackbarObserver)
     }
 
     private fun statusCheck() {
@@ -167,7 +166,6 @@ class SaveReminderFragment : BaseFragment() {
                 reminderDTO.id
             )
 
-//            checkDeviceLocationSettingsAndStartGeofence()
             findNavController().popBackStack()
         }
     }
@@ -200,11 +198,10 @@ class SaveReminderFragment : BaseFragment() {
                             requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
                         )
             } else {
-                Toast.makeText(
-                    requireContext(),
+                Snackbar.make(
+                    requireView(),
                     "Background location permission has not been granted",
-                    Toast.LENGTH_LONG
-                ).show()
+                    Snackbar.LENGTH_LONG).show()
                 false
             }
         return foregroundLocationApproved && backgroundPermissionApproved

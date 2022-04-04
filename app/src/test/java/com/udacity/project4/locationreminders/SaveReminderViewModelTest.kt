@@ -130,9 +130,9 @@ class SaveReminderViewModelTest {
     @Test
     fun testReminderToast() = runBlockingTest {
         val reminder = ReminderDataItem("Title", "Description", "SF", 22.22, 22.22, "Key")
-        saveReminderViewModel.showToast.observeForever { }
+        saveReminderViewModel.showSnackbar.observeForever { }
         saveReminderViewModel.saveReminder(reminder)
-        Assert.assertEquals(saveReminderViewModel.showToast.value, "Reminder Saved!")
+        Assert.assertEquals(saveReminderViewModel.showSnackbar.value, "Reminder Saved!")
     }
 
 }

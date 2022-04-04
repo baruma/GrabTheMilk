@@ -1,57 +1,92 @@
-//package com.udacity.project4
-//
-//import android.os.IBinder
-//import android.view.WindowManager
-//import androidx.test.espresso.Espresso
-//import androidx.test.espresso.Root
-//import androidx.test.espresso.action.ViewActions
-//import androidx.test.espresso.assertion.ViewAssertions
-//import androidx.test.espresso.matcher.ViewMatchers
-//import androidx.test.ext.junit.runners.AndroidJUnit4
-//import androidx.test.filters.MediumTest
-//import com.google.android.gms.maps.model.LatLng
-//import com.google.android.gms.maps.model.PointOfInterest
-//import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import org.hamcrest.Description
-//import org.hamcrest.TypeSafeMatcher
-//import org.junit.Test
-//import org.junit.runner.RunWith
-//
-//@RunWith(AndroidJUnit4::class)
-//@ExperimentalCoroutinesApi
-//@MediumTest
-//class SaveReminderFragmentTest {
-//    // Test if toast is on view
-//
-//    @Test
-//    fun checkIfToastIsAccurte() {
-//
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB))
-//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
-//
-//        val stringHint = appContext.getString(R.string.reminder_title)
-//        Espresso.onView(ViewMatchers.withId(R.id.reminderTitle))
-//            .check(ViewAssertions.matches(ViewMatchers.withHint(stringHint)))
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.reminderTitle))
-//            .perform(ViewActions.typeText(reminderDataItem.title))
-//        Espresso.onView(ViewMatchers.withId(R.id.reminderDescription))
-//            .perform(ViewActions.typeText(reminderDataItem.description))
-//        viewModel.saveLocation(PointOfInterest(LatLng(0.0, 0.0), "Fake Title", "Fake description"))
-//
-//        Espresso.onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard())
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.saveReminder)).perform(ViewActions.click())
-//
-//        Espresso.onView(ViewMatchers.withText(reminderDataItem.title))
-//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withText(reminderDataItem.description))
-//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//    }
-//}
-//
+package com.udacity.project4
+
+import android.os.Bundle
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
+import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment
+import com.udacity.project4.util.DataBindingIdlingResource
+import com.udacity.project4.util.monitorFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+@ExperimentalCoroutinesApi
+@MediumTest
+class SaveReminderFragmentTest {
+
+    private val dataBindingIdlingResource = DataBindingIdlingResource()
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Before
+    fun registerIdlingResources(): Unit = IdlingRegistry.getInstance().run {
+        register(EspressoIdlingResource.countingIdlingResource)
+        register(dataBindingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource(): Unit = IdlingRegistry.getInstance().run {
+        unregister(EspressoIdlingResource.countingIdlingResource)
+        unregister(dataBindingIdlingResource)
+    }
+
+    @Test
+    fun titleNotEnteredSnackbar() {
+        val saveReminderScenario = launchFragmentInContainer<SaveReminderFragment>(Bundle(), R.style.AppTheme)
+        dataBindingIdlingResource.monitorFragment(saveReminderScenario)
+
+        onView(withId(R.id.saveReminderFAB)).perform(ViewActions.click())
+        val titleIssueString = "Please enter title"
+        onView(withText(titleIssueString))
+            .check(matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun descriptionNotEnteredSnackbar() {
+        val saveReminderScenario = launchFragmentInContainer<SaveReminderFragment>(Bundle(), R.style.AppTheme)
+        dataBindingIdlingResource.monitorFragment(saveReminderScenario)
+
+        val titleString = "Title Test"
+
+        onView(withId(R.id.reminderTitle)).perform(ViewActions.typeText(titleString))
+        Espresso.closeSoftKeyboard()
+        onView(withId(R.id.saveReminderFAB)).perform(ViewActions.click())
+        onView(withText(R.string.empty_desription_error)).check(matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun locationNotSelectedSnackbar() {
+        val saveReminderScenario = launchFragmentInContainer<SaveReminderFragment>(Bundle(), R.style.AppTheme)
+        dataBindingIdlingResource.monitorFragment(saveReminderScenario)
+
+        val titleString = "Title Test"
+        val descriptionString = "Description Test"
+
+        onView(withId(R.id.reminderTitle)).perform(ViewActions.typeText(titleString))
+        Espresso.closeSoftKeyboard()
+        onView(withId(R.id.reminderDescription)).perform(ViewActions.typeText(descriptionString))
+        Espresso.closeSoftKeyboard()
+        onView(withId(R.id.saveReminderFAB)).perform(ViewActions.click())
+        onView(withText(R.string.err_select_location)).check(matches(ViewMatchers.isDisplayed()))
+    }
+}
+
 //class ToastMatcher : TypeSafeMatcher<Root?>() {
 //
 //    override fun describeTo(description: Description?) {

@@ -107,8 +107,8 @@ class ReminderListFragment : BaseFragment(), OnReminderItemSelectListener {
                             startActivity(Intent(activity, AuthenticationActivity::class.java))
                             activity.finish()
                         } else {
-                            Toast.makeText(context, "Could not logout. You are trapped here.", Toast.LENGTH_SHORT).show()
-                            print("ERROR. Could not logout")
+                            //Toast.makeText(context, "Could not logout. You are trapped here.", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(requireView(), "Could not log out.  You are trapped here.", Snackbar.LENGTH_LONG).show()
                         }
                     }
 

@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +15,7 @@ import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
@@ -23,12 +24,14 @@ import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class RemindersActivity : AppCompatActivity() {
 
     private lateinit var geofencingClient: GeofencingClient
     val _viewModel: RemindersViewModel by viewModel()
     private var defaultLocation = LatLng(-33.8523341, 151.2106085)
     var geofenceList = mutableListOf<Geofence>()
+
 
     // This activity is listening.  Cannot add jack unless something is listening for it.
     private val geofencePendingIntent: PendingIntent by lazy {
@@ -49,6 +52,7 @@ class RemindersActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reminders)
 
         geofencingClient = LocationServices.getGeofencingClient(this)
+
 
         val geofenceRequestObserver = Observer<GeofencingRequest> { geofenceRequest ->
             addGeofence(geofenceRequest, geofencePendingIntent)
@@ -71,12 +75,16 @@ class RemindersActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     fun addGeofence(request: GeofencingRequest, intent: PendingIntent) {
+
         geofencingClient.addGeofences(request, intent).run {
             addOnSuccessListener {
-                Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Saved", Snackbar.LENGTH_LONG).show()
+
             }
             addOnFailureListener {
-                Toast.makeText(applicationContext, "Geofence Failed to Save", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "Geofence Failed to Save", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Failed to Save", Snackbar.LENGTH_LONG).show()
             }
         }
     }
