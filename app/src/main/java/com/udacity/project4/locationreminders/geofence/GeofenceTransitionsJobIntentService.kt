@@ -20,7 +20,6 @@ import kotlin.coroutines.CoroutineContext
     private val repository by inject<ReminderDataSource>()
      val reminderDataSource: ReminderDataSource by inject()
 
-
      val TAG = "GeofenceTransitionsJobIntentService"
 
     private var coroutineJob: Job = Job()
@@ -55,13 +54,14 @@ import kotlin.coroutines.CoroutineContext
 
     }
 
-
-    //TODO: get the request id of the current geofence
     private fun shootNotification(triggeringGeofences: List<Geofence>) {
         val requestId = when {
             triggeringGeofences.isNotEmpty() ->
             {
                 triggeringGeofences[0].requestId
+                for (item in triggeringGeofences) {
+                    item.requestId
+                }
             }
             else -> {
                 return
@@ -72,7 +72,7 @@ import kotlin.coroutines.CoroutineContext
         //val remindersLocalRepository: RemindersLocalRepository by inject()
 
         CoroutineScope(coroutineContext).launch(SupervisorJob()) {
-            val result = reminderDataSource.getReminderByID(requestId)
+            val result = reminderDataSource.getReminderByID(requestId.toString())
             if (result is Result.Success<ReminderDTO>) {
                 val reminderDTO = result.data
 

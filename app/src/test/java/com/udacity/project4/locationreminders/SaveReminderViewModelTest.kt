@@ -128,12 +128,23 @@ class SaveReminderViewModelTest {
     }
 
     @Test
-    fun testReminderToast() = runBlockingTest {
+    fun testReminderSnackbar() = runBlockingTest {
         val reminder = ReminderDataItem("Title", "Description", "SF", 22.22, 22.22, "Key")
-        saveReminderViewModel.showSnackbar.observeForever { }
+        saveReminderViewModel.showSnackBar.observeForever { }
         saveReminderViewModel.saveReminder(reminder)
-        Assert.assertEquals(saveReminderViewModel.showSnackbar.value, "Reminder Saved!")
+        Assert.assertEquals(saveReminderViewModel.showSnackBar.value, "Reminder Saved!")
     }
+
+//    @RunWith(RobolectricTestRunner::class)
+//    class ToastTest {
+//        private lateinit var scenario: FragmentScenario<SaveReminderFragment>
+//
+//        @Test
+//        fun shotToastTest() {
+//            FragmentScenario.launchInContainer(SaveReminderFragment::class.java, null, R.style.AppTheme, null)
+//            Assert.assertEquals(ShadowToast.getTextOfLatestToast(), "Hi")
+//        }
+//    }
 
 }
 

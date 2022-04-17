@@ -1,5 +1,7 @@
 package com.udacity.project4.locationreminders
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,15 @@ interface OnReminderItemSelectListener {
 class DescriptionFragment : Fragment() {
     companion object {
         val TAG = DescriptionFragment::class.java.simpleName
+
+        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
+
+        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
+            val intent = Intent(context, DescriptionFragment::class.java)
+            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
+            return intent
+        }
+
     }
 
     private lateinit var binding: FragmentDescriptionBinding

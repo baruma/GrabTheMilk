@@ -17,11 +17,7 @@ abstract class BaseFragment : Fragment() {
         super.onStart()
         _viewModel.showErrorMessage.observe(this, Observer {
             //Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
-            Snackbar.make(this.requireView(), getString(it as Int), Snackbar.LENGTH_LONG).show()
-        })
-        _viewModel.showSnackbar.observe(this, Observer {
-            //Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
-            Snackbar.make(this.requireView(), getString(it as Int), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(this.requireView(), it, Snackbar.LENGTH_LONG).show()
         })
         _viewModel.showSnackBar.observe(this, Observer {
             Snackbar.make(this.requireView(), it, Snackbar.LENGTH_LONG).show()

@@ -58,6 +58,11 @@ class ReminderListFragment : BaseFragment(), OnReminderItemSelectListener {
         }
 
         _viewModel.showErrorMessage.observe(viewLifecycleOwner, snackBarErrorObserver)
+
+        val showToastObserver = Observer<String> { text ->
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+        }
+        _viewModel.showToast.observe(viewLifecycleOwner, showToastObserver)
     }
 
     override fun onResume() {

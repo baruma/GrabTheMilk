@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -5,6 +6,8 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+
+
 
 def localPropertiesFile = rootProject.file("local.properties")
 def localProperties = new Properties()
@@ -30,7 +33,7 @@ android {
         multiDexEnabled true
 
         // KEYS
-        buildConfigField "String", "GOOGLE_MAP_KEY", localProperties['GOOGLE_MAP_KEY']
+        buildConfigField "String", "GOOGLE_MAP_KEY", "\"${localProperties['GOOGLE_MAP_KEY']}\""
         manifestPlaceholders = [segmentWriteKey: segmentWriteKey]
 
     }
@@ -107,6 +110,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
 
     // AndroidX Test - JVM testingandroidXTestCoreVersion
     testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
@@ -151,5 +155,6 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     // Truth
+    testImplementation "com.google.truth:truth:$truthVersion"
     androidTestImplementation "com.google.truth:truth:$truthVersion"
 }

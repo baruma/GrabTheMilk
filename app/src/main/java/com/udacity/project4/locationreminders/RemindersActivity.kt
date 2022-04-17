@@ -2,7 +2,6 @@ package com.udacity.project4.locationreminders
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -19,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import kotlinx.android.synthetic.main.activity_reminders.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,7 +51,6 @@ class RemindersActivity : AppCompatActivity() {
 
         geofencingClient = LocationServices.getGeofencingClient(this)
 
-
         val geofenceRequestObserver = Observer<GeofencingRequest> { geofenceRequest ->
             addGeofence(geofenceRequest, geofencePendingIntent)
         }
@@ -78,7 +75,7 @@ class RemindersActivity : AppCompatActivity() {
 
         geofencingClient.addGeofences(request, intent).run {
             addOnSuccessListener {
-                //Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
                 Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Saved", Snackbar.LENGTH_LONG).show()
 
             }
@@ -107,13 +104,13 @@ class RemindersActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    companion object {
-        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
-
-        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
-            val intent = Intent(context, DescriptionFragment::class.java)
-            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
-            return intent
-        }
-    }
+//    companion object {
+//        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
+//
+//        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
+//            val intent = Intent(context, DescriptionFragment::class.java)
+//            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
+//            return intent
+//        }
+//    }
 }

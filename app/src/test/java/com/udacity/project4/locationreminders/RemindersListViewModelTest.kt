@@ -1,19 +1,15 @@
 package com.udacity.project4.locationreminders
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.PointOfInterest
+import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+import com.udacity.project4.R
+import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.Result
-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -21,14 +17,17 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
+import org.mockito.Mockito.mock
+import org.mockito.kotlin.whenever
 
 
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
 class RemindersListViewModelTest {
-
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private var dataSource = FakeDataSource()
-    private var remindersListViewModel = RemindersListViewModel(ApplicationProvider.getApplicationContext(), dataSource)
+    private var remindersListViewModel =
+        RemindersListViewModel(ApplicationProvider.getApplicationContext(), dataSource)
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -49,10 +48,19 @@ class RemindersListViewModelTest {
     }
 
     @Test
-    fun remindersUnableToDisplay() = runBlockingTest {
-        dataSource.setShouldReturnError(true)
-        remindersListViewModel.loadReminders()
-        assertEquals(remindersListViewModel.showLoading.getOrAwaitValue(), false)
-        assertEquals(remindersListViewModel.showErrorMessage.getOrAwaitValue(), "There is no data to display due to an error.")
+    fun noRemindersToDisplayToastTest() = runBlockingTest {
+        val mockedDataSource = mock(ReminderDataSource::class.java)
+        whenever(mockedDataSource.getReminders()).thenReturn(Result.Success(mutableListOf()))
+        val viewModelWithMock =
+            RemindersListViewModel(ApplicationProvider.getApplicationContext(), mockedDataSource)
+
+        viewModelWithMock.loadReminders()
+
+        assertEquals(viewModelWithMock.showLoading.getOrAwaitValue(), false)
+        assertEquals(
+            viewModelWithMock.showToast.getOrAwaitValue(),
+            context.getString(R.string.empty_reminder_message)
+        )
     }
+
 }

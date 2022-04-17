@@ -106,10 +106,10 @@ class SaveReminderFragment : BaseFragment() {
             foregroundAndBackgroundLocationPermissionApproved()
         }
 
-        val snackbarObserver = Observer<String> {
+        val toastObserver = Observer<String> {
             Snackbar.make(view, it, Snackbar.LENGTH_LONG).show()
         }
-        _viewModel.showSnackbar.observe(viewLifecycleOwner, snackbarObserver)
+        _viewModel.showSnackBar.observe(viewLifecycleOwner, toastObserver)
     }
 
     private fun statusCheck() {

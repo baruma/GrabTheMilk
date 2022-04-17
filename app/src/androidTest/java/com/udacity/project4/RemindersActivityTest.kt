@@ -1,4 +1,3 @@
-
 package com.udacity.project4
 
 import android.app.Application
@@ -9,9 +8,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withHint
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -23,6 +20,7 @@ import com.udacity.project4.locationreminders.data.local.LocalDB
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
+import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
@@ -50,7 +48,8 @@ class RemindersActivityTest :
     private lateinit var repository: ReminderDataSource
     private lateinit var appContext: Application
     private val dataBindingIdlingResource = DataBindingIdlingResource()
-    private lateinit var viewModel : SaveReminderViewModel
+    private lateinit var viewModel: SaveReminderViewModel
+
     @get:Rule
     val activityRule = ActivityScenarioRule(RemindersActivity::class.java)
 
@@ -68,6 +67,9 @@ class RemindersActivityTest :
                     appContext,
                     get() as ReminderDataSource
                 )
+            }
+            viewModel {
+                RemindersViewModel(get() as ReminderDataSource)
             }
             single {
                 SaveReminderViewModel(appContext, get(), Dispatchers.Main)
@@ -89,6 +91,9 @@ class RemindersActivityTest :
         }
 
 
+//        activityRule.scenario.onActivity {
+//            activity = it
+//        }
     }
 
     @Before
@@ -112,24 +117,25 @@ class RemindersActivityTest :
             "San Francisco",
             37.77493,
             -122.41942,
-            "IHateEntitledSanFranciscanFoodies")
+            "IHateEntitledSanFranciscanFoodies"
+        )
 
-        onView(ViewMatchers.withId(R.id.addReminderFAB)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(click())
+        onView(withId(R.id.addReminderFAB)).check(matches(isDisplayed()))
+        onView(withId(R.id.addReminderFAB)).perform(click())
 
         val stringHint = appContext.getString(R.string.reminder_title)
-        onView(ViewMatchers.withId(R.id.reminderTitle)).check(matches(withHint(stringHint)))
+        onView(withId(R.id.reminderTitle)).check(matches(withHint(stringHint)))
 
-        onView(ViewMatchers.withId(R.id.reminderTitle)).perform(typeText(reminderDataItem.title))
-        onView(ViewMatchers.withId(R.id.reminderDescription)).perform(typeText(reminderDataItem.description))
+        onView(withId(R.id.reminderTitle)).perform(typeText(reminderDataItem.title))
+        onView(withId(R.id.reminderDescription)).perform(typeText(reminderDataItem.description))
         viewModel.savePOI(PointOfInterest(LatLng(0.0, 0.0), "Fake Title", "Fake description"))
 
-        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard())
+        onView(isRoot()).perform(ViewActions.closeSoftKeyboard())
 
-        onView(ViewMatchers.withId(R.id.saveReminderFAB)).perform(click())
+        onView(withId(R.id.saveReminderFAB)).perform(click())
 
-        onView(ViewMatchers.withText(reminderDataItem.title)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withText(reminderDataItem.description)).check(matches(isDisplayed()))
+        onView(withText(reminderDataItem.title)).check(matches(isDisplayed()))
+        onView(withText(reminderDataItem.description)).check(matches(isDisplayed()))
     }
 
 }

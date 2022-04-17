@@ -1,12 +1,14 @@
 package com.udacity.project4.maps
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -72,6 +74,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private val callback = OnMapReadyCallback { googleMap ->
         this.map = googleMap  // init happens 1x and only 1x.
         setMapStyle(googleMap)
+        locateUser()
 
         if (lastKnownLocation != null) {
             map?.moveCamera(
@@ -116,7 +119,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         setHasOptionsMenu(true)
 
         //Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_SHORT).show()
-        Snackbar.make(requireView(), "Please choose a place for your reminder.", Snackbar.LENGTH_LONG).show()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getUserLocation()
@@ -131,6 +133,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
+
+
         return binding.root
     }
 
@@ -138,6 +142,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        Snackbar.make(binding.root, "Please choose a place for your reminder.", Snackbar.LENGTH_LONG).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -165,6 +170,23 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun locateUser() {
+            val isFineLocationGranted = (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED)
+
+            val isCourseLocationGranted = (ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+            )
+
+            if (isFineLocationGranted || isCourseLocationGranted) {
+                map?.isMyLocationEnabled = true
+            }
     }
 
     private fun setMapStyle(map: GoogleMap) {

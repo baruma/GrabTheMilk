@@ -1,2 +1,0 @@
-com/udacity/project4/test/BuildConfig.java
- com.udacity.project4.test.BuildConfig
