@@ -18,19 +18,6 @@ interface OnReminderItemSelectListener {
 }
 
 class DescriptionFragment : Fragment() {
-    companion object {
-        val TAG = DescriptionFragment::class.java.simpleName
-
-        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
-
-        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
-            val intent = Intent(context, DescriptionFragment::class.java)
-            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
-            return intent
-        }
-
-    }
-
     private lateinit var binding: FragmentDescriptionBinding
     val _viewModel: DescriptionViewModel by viewModel()
 

@@ -60,7 +60,7 @@ class LocalRepositoryTest {
             .build()
 
         repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.Main)
-
+        setReturnError(false)
     }
 
     @After
@@ -103,11 +103,11 @@ class LocalRepositoryTest {
 
     @Test
     fun getRemindersFailure() = runBlocking {
+        setReturnError(true)
+
         val result = repository.getReminderByID(reminder.id)
         Truth.assertThat(result).isInstanceOf(Result.Error::class.java)
-
-        result as Result.Error
-        setReturnError(false)
+        Truth.assertThat((result as Result.Error).message).isEqualTo("Reminder not found!")
     }
 
 //    override suspend fun getReminders(): Result<List<ReminderDTO>> = withContext(ioDispatcher) {

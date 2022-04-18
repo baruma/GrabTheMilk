@@ -16,11 +16,11 @@ import org.koin.android.ext.android.inject
 import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
- class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope, KoinComponent {
+class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope, KoinComponent {
     private val repository by inject<ReminderDataSource>()
-     val reminderDataSource: ReminderDataSource by inject()
+    val reminderDataSource: ReminderDataSource by inject()
 
-     val TAG = "GeofenceTransitionsJobIntentService"
+    val TAG = "GeofenceTransitionsJobIntentService"
 
     private var coroutineJob: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -45,50 +45,33 @@ import kotlin.coroutines.CoroutineContext
         //TODO: handle the geofencing transition events and
         // send a notification to the user when he enters the geofence area
         //TODO call @sendNotification
-        val geoFenceEvent= GeofencingEvent.fromIntent(intent)
+        val geoFenceEvent = GeofencingEvent.fromIntent(intent)
         when (geoFenceEvent.geofenceTransition) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
                 shootNotification(geoFenceEvent.triggeringGeofences)
             }
         }
-
     }
 
     private fun shootNotification(triggeringGeofences: List<Geofence>) {
-        val requestId = when {
-            triggeringGeofences.isNotEmpty() ->
-            {
-                triggeringGeofences[0].requestId
-                for (item in triggeringGeofences) {
-                    item.requestId
-                }
-            }
-            else -> {
-                return
-            }
-        }
-
-        //Get the local repository instance
-        //val remindersLocalRepository: RemindersLocalRepository by inject()
-
-        CoroutineScope(coroutineContext).launch(SupervisorJob()) {
-            val result = reminderDataSource.getReminderByID(requestId.toString())
-            if (result is Result.Success<ReminderDTO>) {
-                val reminderDTO = result.data
-
-                sendNotification(
-                    this@GeofenceTransitionsJobIntentService, ReminderDataItem(
-                        reminderDTO.title,
-                        reminderDTO.description,
-                        reminderDTO.location,
-                        reminderDTO.latitude,
-                        reminderDTO.longitude,
-                        reminderDTO.id
+        triggeringGeofences.forEach { geofence ->
+            val requestId = geofence.requestId
+            CoroutineScope(coroutineContext).launch(SupervisorJob()) {
+                val result = reminderDataSource.getReminderByID(requestId)
+                if (result is Result.Success<ReminderDTO>) {
+                    val reminderDTO = result.data
+                    sendNotification(
+                        this@GeofenceTransitionsJobIntentService, ReminderDataItem(
+                            reminderDTO.title,
+                            reminderDTO.description,
+                            reminderDTO.location,
+                            reminderDTO.latitude,
+                            reminderDTO.longitude,
+                            reminderDTO.id
+                        )
                     )
-                )
-
+                }
             }
         }
     }
-
 }

@@ -5,8 +5,10 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
+import androidx.navigation.NavDeepLinkBuilder
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.DescriptionFragment
@@ -33,21 +35,23 @@ fun sendNotification(context: Context, reminderDataItem: ReminderDataItem) {
     }
 
     // TODO: Change this to DescriptionFragment
-    val intent = DescriptionFragment.newIntent(context.applicationContext, reminderDataItem)
 
-    //create a pending intent that opens ReminderDescriptionActivity when the user clicks on the notification
-    val stackBuilder = TaskStackBuilder.create(context)
-        .addParentStack(RemindersActivity::class.java)
-        .addNextIntent(intent)
-    val notificationPendingIntent = stackBuilder
-        .getPendingIntent(getUniqueId(), PendingIntent.FLAG_UPDATE_CURRENT)
+    val bundle = Bundle()
+    bundle.putSerializable("reminder", reminderDataItem)
+
+    val pendingIntent = NavDeepLinkBuilder(context)
+        .setGraph(R.navigation.nav_graph)
+        .setDestination(R.id.descriptionFragment)
+        .setArguments(bundle)
+        .setComponentName(RemindersActivity::class.java)
+        .createPendingIntent()
 
 //    build the notification object with the data to be shown
     val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
         .setSmallIcon(R.mipmap.ic_launcher)
         .setContentTitle(reminderDataItem.title)
         .setContentText(reminderDataItem.location)
-        .setContentIntent(notificationPendingIntent)
+        .setContentIntent(pendingIntent)
         .setAutoCancel(true)
         .build()
 

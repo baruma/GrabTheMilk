@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
@@ -39,6 +40,8 @@ class RemindersActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        Navigation.findNavController(this, R.id.nav_host_fragment).handleDeepLink(intent)
+
         val idList = intent.extras?.getStringArray("GEOFENCE_IDS") ?: emptyArray()
         idList.forEach {
             _viewModel.retrieveReminderUponUserEnteringPOI(it)

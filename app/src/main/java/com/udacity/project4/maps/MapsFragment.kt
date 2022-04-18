@@ -118,8 +118,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     ): View {
         setHasOptionsMenu(true)
 
-        //Toast.makeText(this@MapsFragment.requireActivity(), "Please choose a place for your reminder.", Toast.LENGTH_SHORT).show()
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getUserLocation()
 
