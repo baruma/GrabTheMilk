@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -70,7 +71,7 @@ class RemindersActivity : AppCompatActivity() {
 
         _viewModel.reminder.observe(this, reminderObserver)
 
-
+        Toast.makeText(applicationContext, "Oh heyyy", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")
