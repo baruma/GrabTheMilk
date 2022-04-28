@@ -3,24 +3,24 @@
 3    package="com.udacity.project4.test" >
 4
 5    <uses-sdk
-5-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:5:5-74
+5-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:5:5-74
 6        android:minSdkVersion="16"
-6-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:5:15-41
-7        android:targetSdkVersion="30" />
-7-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:5:42-71
+6-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:5:15-41
+7        android:targetSdkVersion="29" />
+7-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:5:42-71
 8
 9    <instrumentation
-9-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:11:5-15:70
+9-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:11:5-15:70
 10        android:name="androidx.test.runner.AndroidJUnitRunner"
-10-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:11:22-76
+10-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:11:22-76
 11        android:functionalTest="false"
-11-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:14:22-52
+11-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:14:22-52
 12        android:handleProfiling="false"
-12-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:13:22-53
+12-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:13:22-53
 13        android:label="Tests for com.udacity.project4"
-13-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:15:22-68
+13-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:15:22-68
 14        android:targetPackage="com.udacity.project4" />
-14-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:12:22-66
+14-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:12:22-66
 15
 16    <queries>
 16-->[androidx.test:runner:1.4.0] /Users/lianahaque/.gradle/caches/transforms-2/files-2.1/7abc42511100c8b77bba19a33e2bd031/runner-1.4.0/AndroidManifest.xml:24:5-28:15
@@ -36,11 +36,11 @@
 20    </queries>
 21
 22    <application android:debuggable="true" >
-22-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:7:5-9:19
-22-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:7:18-43
+22-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:7:5-9:19
+22-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:7:18-43
 23        <uses-library android:name="android.test.runner" />
-23-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:8:9-60
-23-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger9805236216468119976.xml:8:23-57
+23-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:8:9-60
+23-->/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger4883256056175841342.xml:8:23-57
 24    </application>
 25
 26</manifest>
