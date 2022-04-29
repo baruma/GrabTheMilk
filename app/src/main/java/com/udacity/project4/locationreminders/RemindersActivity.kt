@@ -71,7 +71,7 @@ class RemindersActivity : AppCompatActivity() {
 
         _viewModel.reminder.observe(this, reminderObserver)
 
-        Toast.makeText(applicationContext, "Oh heyyy", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, "Oh heyyy", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")

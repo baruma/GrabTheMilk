@@ -2,7 +2,6 @@ package com.udacity.project4.locationreminders.savereminder
 
 import android.Manifest
 import android.annotation.TargetApi
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -45,8 +44,8 @@ class SaveReminderFragment : BaseFragment() {
 
     private var locationPermissionGranted = false
 
-    private val isRunningQOrLater =
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
+    private val isRunningROrLater =
+        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,18 +79,44 @@ class SaveReminderFragment : BaseFragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
 
-            if (isBackgroundLocationGranted && isFineLocationGranted) {
+            val isCoarseLocationGranted = (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED)
+
+            if (isBackgroundLocationGranted && (isFineLocationGranted || isCoarseLocationGranted)) {
                 locationPermissionGranted = true
                 foregroundAndBackgroundLocationPermissionApproved()
                 _viewModel.navigationCommand.value =
                     To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+            } else if (isBackgroundLocationGranted) {
+
+                _viewModel.navigationCommand.value =
+                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
             } else {
-                getLocationPermission()
-                ActivityCompat.requestPermissions(
-                    context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-                )
-                requestForegroundAndBackgroundLocationPermissions()
+                if (isRunningROrLater) {
+                    // background location permission is not granted
+                    // bring the user to settings to select "Allow all the time"
+                    requestForegroundAndBackgroundLocationPermissions()
+
+                } else {
+                    // Show permission dialog if first time otherwise, bring them to settings
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            requireActivity(),
+                            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                        )
+                    ) {
+                        // if first time requesting show permission dialog
+                        // if after first time, show snackbar with settings button
+
+                    }
+                }
+//                getLocationPermission()
+//                ActivityCompat.requestPermissions(
+//                    context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+//                )
+//                requestForegroundAndBackgroundLocationPermissions()
             }
         }
 
@@ -193,7 +218,7 @@ class SaveReminderFragment : BaseFragment() {
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ))
         val backgroundPermissionApproved =
-            if (isRunningQOrLater) {
+            if (isRunningROrLater) {
                 PackageManager.PERMISSION_GRANTED ==
                         ActivityCompat.checkSelfPermission(
                             requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
@@ -202,7 +227,8 @@ class SaveReminderFragment : BaseFragment() {
                 Snackbar.make(
                     requireView(),
                     "Background location permission has not been granted",
-                    Snackbar.LENGTH_LONG).show()
+                    Snackbar.LENGTH_LONG
+                ).show()
                 false
             }
         return foregroundLocationApproved && backgroundPermissionApproved
@@ -214,7 +240,7 @@ class SaveReminderFragment : BaseFragment() {
             return
         var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         val resultCode = when {
-            isRunningQOrLater -> {
+            isRunningROrLater -> {
                 permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
             }

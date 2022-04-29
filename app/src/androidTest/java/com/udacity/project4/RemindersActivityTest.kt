@@ -1,21 +1,15 @@
 package com.udacity.project4
 
-import android.app.Activity
 import android.app.Application
-import android.os.Bundle
-import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -34,11 +28,8 @@ import com.udacity.project4.locationreminders.savereminder.RemindersViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
-import com.udacity.project4.util.monitorFragment
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -124,6 +115,9 @@ class RemindersActivityTest :
 
     @Test
     fun launchReminderActivityAndCreateAReminder() {
+        val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
         val reminderDataItem = ReminderDataItem(
             "Test Title",
             "Test Description",
@@ -153,14 +147,14 @@ class RemindersActivityTest :
 
     // Here be the problematic test.
     @Test
-    fun testCheesyGreetingToast() {
+    fun testEmptyyReminderListMessage() {
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
-        val activity = getActivity(appContext)
 
-        val text = "oh heyyy"
-        Espresso.onView(ViewMatchers.withText(text)).inRoot(ToastMatcher())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        val emptyMessage = appContext.getString(R.string.empty_reminder_message)
+
+        onView(withText(emptyMessage)).inRoot(ToastMatcher())
+            .check(matches(isDisplayed()))
 
     }
 
