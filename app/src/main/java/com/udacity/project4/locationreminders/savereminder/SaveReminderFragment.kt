@@ -91,16 +91,19 @@ class SaveReminderFragment : BaseFragment() {
 
             // FLOW
             if (isBackgroundLocationGranted && (isFineLocationGranted || isCoarseLocationGranted)) {
+                statusCheck()
                 locationPermissionGranted = true
                 foregroundAndBackgroundLocationPermissionApproved()
                 _viewModel.navigationCommand.value =
                     To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
             } else if (isBackgroundLocationGranted) {
+                statusCheck()
                 _viewModel.navigationCommand.value =
                     To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
             } else {
                 if (isRunningROrLater) {
 //                    requestForegroundAndBackgroundLocationPermissions()
+                    statusCheck()
                     _viewModel.navigationCommand.value =
                         To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
                 } else {
