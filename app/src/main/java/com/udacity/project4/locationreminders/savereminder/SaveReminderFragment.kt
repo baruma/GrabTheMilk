@@ -26,8 +26,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
+import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.base.NavigationCommand.To
 import com.udacity.project4.databinding.FragmentSaveReminderBinding
+import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.maps.MapsFragment
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
@@ -43,6 +45,8 @@ class SaveReminderFragment : BaseFragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private var locationPermissionGranted = false
+
+    private var reminderToSave: ReminderDataItem? = null
 
     private val isRunningROrLater =
         android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R
@@ -69,93 +73,8 @@ class SaveReminderFragment : BaseFragment() {
         binding.lifecycleOwner = this
 
         binding.selectLocationField.setOnClickListener {
-
-            // BACKGROUND VARIABLE
-            val isBackgroundLocationGranted = (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED)
-
-
-            // FOREGROUND VARIABLES
-            val isFineLocationGranted = (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED)
-
-            val isCoarseLocationGranted = (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED)
-
-
-            // FLOW
-            if (isBackgroundLocationGranted && (isFineLocationGranted || isCoarseLocationGranted)) {
-                statusCheck()
-                locationPermissionGranted = true
-                foregroundAndBackgroundLocationPermissionApproved()
-                _viewModel.navigationCommand.value =
-                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
-            } else if (isBackgroundLocationGranted) {
-                statusCheck()
-                _viewModel.navigationCommand.value =
-                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
-            } else {
-                if (isRunningROrLater) {
-//                    requestForegroundAndBackgroundLocationPermissions()
-                    statusCheck()
-                    _viewModel.navigationCommand.value =
-                        To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
-                } else {
-                    // Show permission dialog if first time otherwise, bring them to settings
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            requireActivity(),
-                            Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                        )
-                    ) {
-                        // if first time requesting show permission dialog
-                        // if after first time, show snackbar with settings button
-                        var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-                        val resultCode = when {
-                            isRunningROrLater -> {
-                                permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                                REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
-                            }
-                            else -> REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
-                        }
-                        Log.d(TAG, "Request foreground only location permission")
-                        requestPermissions(
-                            permissionsArray,
-                            resultCode
-                        )
-
-                        _viewModel.navigationCommand.value =
-                            To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
-
-                    } else {
-                        Snackbar.make(
-                            binding.root,
-                            R.string.permission_denied_explanation,
-                            Snackbar.LENGTH_INDEFINITE
-                        )
-                            .setAction(R.string.settings) {
-                                startActivity(Intent().apply {
-                                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                })
-                            }.show()
-
-                        showLocationDialog()
-                    }
-                }
-//                getLocationPermission()
-//                ActivityCompat.requestPermissions(
-//                    context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-//                )
-//                requestForegroundAndBackgroundLocationPermissions()
-            }
+            _viewModel.navigationCommand.value =
+                NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
         }
 
         binding.saveReminderFAB.setOnClickListener {
@@ -175,6 +94,73 @@ class SaveReminderFragment : BaseFragment() {
         _viewModel.showSnackBar.observe(viewLifecycleOwner, toastObserver)
     }
 
+
+    //        // BACKGROUND VARIABLE
+//        val isBackgroundLocationGranted = (ContextCompat.checkSelfPermission(
+//            requireContext(),
+//            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+//        ) == PackageManager.PERMISSION_GRANTED)
+//
+//
+//            // FLOW
+//            if (isBackgroundLocationGranted|| (isFineLocationGranted || isCoarseLocationGranted)) {
+//                locationPermissionGranted = true
+//                foregroundAndBackgroundLocationPermissionApproved()
+//                _viewModel.navigationCommand.value =
+//                    NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+////                statusCheck()
+//            } else if (isBackgroundLocationGranted) {
+//                statusCheck()
+//                _viewModel.navigationCommand.value =
+//                    NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+//            } else {
+//                if (isRunningROrLater) {
+//                    requestForegroundAndBackgroundLocationPermissions()
+//                } else {
+//                    // Show permission dialog if first time otherwise, bring them to settings
+//                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                            requireActivity(),
+//                            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+//                        )
+//                    ) {
+//                        // if first time requesting show permission dialog
+//                        // if after first time, show snackbar with settings button
+//                        var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+//                        val resultCode = when {
+//                            isRunningROrLater -> {
+//                                permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
+//                                SaveReminderFragment.REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
+//                            }
+//                            else -> SaveReminderFragment.REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
+//                        }
+//                        Log.d(MapsFragment.TAG, "Request foreground only location permission")
+//                        requestPermissions(
+//                            permissionsArray,
+//                            resultCode
+//                        )
+//
+//                        _viewModel.navigationCommand.value =
+//                            NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+//
+//                    } else {
+//                        Snackbar.make(
+//                            binding.root,
+//                            R.string.permission_denied_explanation,
+//                            Snackbar.LENGTH_INDEFINITE
+//                        )
+//                            .setAction(R.string.settings) {
+//                                startActivity(Intent().apply {
+//                                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+//                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                                })
+//                            }.show()
+//
+//                        showLocationDialog()
+//                    }
+//                }
+//            }
+//
     private fun statusCheck() {
         val manager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -221,15 +207,44 @@ class SaveReminderFragment : BaseFragment() {
             longitude
         )
 
-        if (_viewModel.validateEnteredData(reminderDTO)) {
-            _viewModel.saveReminder(reminderDTO)
-            remindersViewModel.createGeofenceRequest(
-                reminderDTO.latitude!!,
-                reminderDTO.longitude!!,
-                reminderDTO.id
-            )
-
+        if (_viewModel.validateEnteredData(reminderDTO) && foregroundAndBackgroundLocationPermissionApproved()) {
+            saveToDatabase(reminderDTO)
+            addGeofence(reminderDTO.latitude!!, reminderDTO.longitude!!, reminderDTO.id)
             findNavController().popBackStack()
+        } else {
+            reminderToSave = reminderDTO
+            requestForegroundAndBackgroundLocationPermissions()
+        }
+    }
+
+    private fun saveToDatabase(reminder: ReminderDataItem) {
+        _viewModel.saveReminder(reminder)
+    }
+
+    private fun addGeofence(latitude: Double, longitude: Double, id: String) {
+        remindersViewModel.createGeofenceRequest(
+            latitude,
+            longitude,
+            id
+        )
+    }
+
+
+    private fun checkForLocationAllTheTimeOrNah() {
+        /* Check if we have "Allow access all the time" with location permissions
+         if not, ask for it.
+         if Granted
+             saveReminder to database
+             add geofence to geofence manager
+           if not granted
+              save to database
+        */
+
+        if (foregroundAndBackgroundLocationPermissionApproved()) {
+            //save to db
+            // add geofence
+        } else {
+            requestForegroundAndBackgroundLocationPermissions()
         }
     }
 
@@ -300,26 +315,43 @@ class SaveReminderFragment : BaseFragment() {
     ) {
         Log.d(TAG, "onRequestPermissionResult")
 
-        if (
-            grantResults.isEmpty() ||
-            grantResults[LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED ||
+        if (grantResults.isEmpty() ||
             (requestCode == REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE &&
                     grantResults[BACKGROUND_LOCATION_PERMISSION_INDEX] ==
                     PackageManager.PERMISSION_DENIED)
         ) {
-            Snackbar.make(
-                binding.root,
-                R.string.permission_denied_explanation,
-                Snackbar.LENGTH_INDEFINITE
-            )
-                .setAction(R.string.settings) {
-                    startActivity(Intent().apply {
-                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    })
-                }.show()
+            reminderToSave?.let { reminder ->
+                saveToDatabase(reminder)
+            }
+            findNavController().popBackStack()
+        } else {
+            reminderToSave?.let { reminder ->
+                saveToDatabase(reminder)
+                addGeofence(reminder.latitude!!, reminder.longitude!!, reminder.id)
+            }
+            findNavController().popBackStack()
         }
+
+//        if (
+//            grantResults.isEmpty() ||
+//            grantResults[LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED ||
+//            (requestCode == REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE &&
+//                    grantResults[BACKGROUND_LOCATION_PERMISSION_INDEX] ==
+//                    PackageManager.PERMISSION_DENIED)
+//        ) {
+//            Snackbar.make(
+//                binding.root,
+//                R.string.permission_denied_explanation,
+//                Snackbar.LENGTH_INDEFINITE
+//            )
+//                .setAction(R.string.settings) {
+//                    startActivity(Intent().apply {
+//                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+//                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                    })
+//                }.show()
+//        }
     }
 
     override fun onDestroy() {

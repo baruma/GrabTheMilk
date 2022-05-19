@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -80,12 +81,13 @@ class RemindersActivity : AppCompatActivity() {
         geofencingClient.addGeofences(request, intent).run {
             addOnSuccessListener {
                // Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
-                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Saved", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Added", Snackbar.LENGTH_LONG).show()
 
             }
             addOnFailureListener {
 //                Toast.makeText(applicationContext, "Geofence Failed to Save", Toast.LENGTH_SHORT).show()
-                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Failed to Save", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Failed to add Geofence", Snackbar.LENGTH_LONG).show()
+                Log.d("screaming", exception?.message!!, it)
             }
         }
     }
