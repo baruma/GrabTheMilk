@@ -281,9 +281,9 @@ class SaveReminderFragment : BaseFragment() {
                     "Background location permission has not been granted",
                     Snackbar.LENGTH_LONG
                 ).show()
-                // you are here rn
-                _viewModel.navigationCommand.value =
-                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+//                // you are here rn
+//                _viewModel.navigationCommand.value =
+//                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
                 false
             }
         return foregroundLocationApproved && backgroundPermissionApproved
