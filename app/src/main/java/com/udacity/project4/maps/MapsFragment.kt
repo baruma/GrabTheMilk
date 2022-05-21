@@ -35,8 +35,6 @@ import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentMapsBinding
-import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment
-import com.udacity.project4.locationreminders.savereminder.SaveReminderFragmentDirections
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -142,7 +140,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
-        getUserLocation()
 
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
@@ -156,7 +153,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
 
-
         return binding.root
     }
 
@@ -164,19 +160,13 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-        Snackbar.make(
-            binding.root,
-            "Please choose a place for your reminder.",
-            Snackbar.LENGTH_LONG
-        ).show()
-
-//        statusCheck()
-        /*
-            Make sure GPS is on the device
-            isFineLocationGranted || isCoarseLocationGranted
-
-         */
-
+        //todo triggering crash
+//        Snackbar.make(
+//            binding.root,
+//            "Please choose a place for your reminder.",
+//            Snackbar.LENGTH_LONG
+//        ).show()
+        Log.d(TAG, "MapsFragment AFTER onViewCreated snackbar")
 
         // FOREGROUND VARIABLES
         val isFineLocationGranted = (ContextCompat.checkSelfPermission(
@@ -203,16 +193,15 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         } else {
             // ask for fine location
             var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-            val resultCode = SaveReminderFragment.REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
+            val resultCode = REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
             Log.d(MapsFragment.TAG, "Request foreground only location permission")
             requestPermissions(
                 permissionsArray,
                 resultCode
             )
         }
-
+        Log.d(TAG, "End of OnViewCreated")
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->
@@ -246,13 +235,14 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        Log.d(MapsFragment.TAG, "onRequestPermissionResult")
+        Log.d(TAG, "onRequestPermissionResult")
         // permissions
         if (
-            requestCode != SaveReminderFragment.REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE ||
+            requestCode != REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE ||
             grantResults.isEmpty() ||
             grantResults.first() == PackageManager.PERMISSION_DENIED
         ) {
+            Log.d(TAG, "MapsFragment BEFORE onRequestPermissionsResult is upset")
             Snackbar.make(
                 binding.root,
                 R.string.permission_denied_explanation,
@@ -265,6 +255,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     })
                 }.show()
+            Log.d(TAG, "AFTER onRequestPermissionsResult is upset")
         } else {
             // location granted
             // maybe show user location with blue dot
@@ -278,7 +269,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             } else {
                 showLocationDialog()
             }
-
         }
     }
 //    override fun onRequestPermissionsResult(
@@ -294,7 +284,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 //                    grantResults[SaveReminderFragment.BACKGROUND_LOCATION_PERMISSION_INDEX] ==
 //                    PackageManager.PERMISSION_DENIED)
 //        ) {
-//            Snackbar.make(
+//            binding(
 //                binding.root,
 //                R.string.permission_denied_explanation,
 //                Snackbar.LENGTH_INDEFINITE
@@ -337,14 +327,16 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                             requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
                         )
             } else {
-                Snackbar.make(
-                    requireView(),
-                    "Background location permission has not been granted",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                Log.d(TAG, "MapsFrag BEFORE foregroundAndBackgroundLocationPermissionApproved is upset")
+//                Snackbar.make(
+//                    requireView(),
+//                    "Background location permission has not been granted",
+//                    Snackbar.LENGTH_LONG
+//                ).show()
+                Log.d(TAG, "MapsFrag AFTER foregroundAndBackgroundLocationPermissionApproved is upset")
+
                 // you are here rn
-                _viewModel.navigationCommand.value =
-                    NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+                _viewModel.navigationCommand.value = NavigationCommand.Back
                 false
             }
         return foregroundLocationApproved && backgroundPermissionApproved
@@ -360,7 +352,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                 permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 MapsFragment.REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
             }
-            else -> MapsFragment.REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
+            else -> REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
         }
         Log.d(MapsFragment.TAG, "Request foreground only location permission")
         requestPermissions(
@@ -480,10 +472,10 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     companion object {
         private val TAG = MapsFragment::class.java.simpleName
-        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 10923458
 
-        const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
-        const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
+        const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 3324
+        const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 3426
         const val LOCATION_PERMISSION_INDEX = 0
         const val BACKGROUND_LOCATION_PERMISSION_INDEX = 1
     }

@@ -42,7 +42,8 @@ import org.koin.dsl.module
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.get
 
-
+// testEmptyReminderListMessage did not pass API 29.
+// testEmptytReminderListMessage AND TEST EMPTYREMINDERLISTMESSAGE did not pass on API 31
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 //END TO END test to black box test the app

@@ -23,6 +23,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
+// NONE PASSED ON 29
+// Passed on 31
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
 @MediumTest

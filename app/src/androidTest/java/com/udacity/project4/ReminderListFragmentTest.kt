@@ -50,6 +50,8 @@ import org.koin.dsl.module
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
+// testNavigationToSaveReminderFragment did NOT passs 5/20 on 29 and 31
+
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
 //UI Testing

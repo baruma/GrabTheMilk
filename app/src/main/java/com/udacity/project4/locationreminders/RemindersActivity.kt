@@ -82,12 +82,15 @@ class RemindersActivity : AppCompatActivity() {
             addOnSuccessListener {
                // Toast.makeText(applicationContext, "Geofence Saved", Toast.LENGTH_SHORT).show()
                 Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Geofence Added", Snackbar.LENGTH_LONG).show()
+                Log.d("snackbar", "addGeofence on success is upset")
 
             }
             addOnFailureListener {
 //                Toast.makeText(applicationContext, "Geofence Failed to Save", Toast.LENGTH_SHORT).show()
                 Snackbar.make(findViewById<View>(android.R.id.content).getRootView(), "Failed to add Geofence", Snackbar.LENGTH_LONG).show()
                 Log.d("screaming", exception?.message!!, it)
+                Log.d("snackbar", "addGeofence on failure is upset")
+
             }
         }
     }

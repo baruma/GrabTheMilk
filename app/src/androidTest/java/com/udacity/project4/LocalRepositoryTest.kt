@@ -20,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+// Passed on both API 29 and 30 since 5/20
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)

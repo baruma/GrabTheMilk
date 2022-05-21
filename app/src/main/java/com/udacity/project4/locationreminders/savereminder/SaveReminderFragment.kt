@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -23,13 +22,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
-import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
-import com.udacity.project4.base.NavigationCommand.To
 import com.udacity.project4.databinding.FragmentSaveReminderBinding
-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.maps.MapsFragment
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
@@ -41,11 +37,8 @@ class SaveReminderFragment : BaseFragment() {
     private val remindersViewModel: RemindersViewModel by sharedViewModel()
 
     private lateinit var binding: FragmentSaveReminderBinding
-
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
     private var locationPermissionGranted = false
-
     private var reminderToSave: ReminderDataItem? = null
 
     private val isRunningROrLater =
@@ -276,14 +269,12 @@ class SaveReminderFragment : BaseFragment() {
                             requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
                         )
             } else {
-                Snackbar.make(
-                    requireView(),
-                    "Background location permission has not been granted",
-                    Snackbar.LENGTH_LONG
-                ).show()
-//                // you are here rn
-//                _viewModel.navigationCommand.value =
-//                    To(SaveReminderFragmentDirections.actionSaveReminderFragmentToMapsFragment())
+//                Snackbar.make(
+//                    requireView(),
+//                    "Background location permission has not been granted",
+//                    Snackbar.LENGTH_LONG
+//                ).show()
+                Log.d("snackbar", "foregroundAndBackgroundLocationPermissionApproved is upset")
                 false
             }
         return foregroundLocationApproved && backgroundPermissionApproved
@@ -321,37 +312,24 @@ class SaveReminderFragment : BaseFragment() {
                     PackageManager.PERMISSION_DENIED)
         ) {
             reminderToSave?.let { reminder ->
-                saveToDatabase(reminder)
+                if (reminder.latitude == null || reminder.longitude ==  null) {
+                    Log.d(TAG, "Lat and/or Long is null")
+                } else {
+                    saveToDatabase(reminder)
+                    findNavController().popBackStack()
+                }
             }
-            findNavController().popBackStack()
         } else {
             reminderToSave?.let { reminder ->
-                saveToDatabase(reminder)
-                addGeofence(reminder.latitude!!, reminder.longitude!!, reminder.id)
+                if (reminder.latitude == null || reminder.longitude ==  null) {
+                    Log.d(TAG, "Lat and/or Long is null")
+                } else {
+                    saveToDatabase(reminder)
+                    addGeofence(reminder.latitude!!, reminder.longitude!!, reminder.id)
+                    findNavController().popBackStack()
+                }
             }
-            findNavController().popBackStack()
         }
-
-//        if (
-//            grantResults.isEmpty() ||
-//            grantResults[LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED ||
-//            (requestCode == REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE &&
-//                    grantResults[BACKGROUND_LOCATION_PERMISSION_INDEX] ==
-//                    PackageManager.PERMISSION_DENIED)
-//        ) {
-//            Snackbar.make(
-//                binding.root,
-//                R.string.permission_denied_explanation,
-//                Snackbar.LENGTH_INDEFINITE
-//            )
-//                .setAction(R.string.settings) {
-//                    startActivity(Intent().apply {
-//                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-//                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-//                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                    })
-//                }.show()
-//        }
     }
 
     override fun onDestroy() {
@@ -360,11 +338,11 @@ class SaveReminderFragment : BaseFragment() {
     }
 
     companion object {
-        private val TAG = MapsFragment::class.java.simpleName
-        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private val TAG = SaveReminderFragment::class.java.simpleName
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 123587
 
-        const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
-        const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
+        const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 312343
+        const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 39824
         const val LOCATION_PERMISSION_INDEX = 0
         const val BACKGROUND_LOCATION_PERMISSION_INDEX = 1
     }
