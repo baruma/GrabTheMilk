@@ -48,6 +48,13 @@ class RemindersListViewModelTest {
     }
 
     @Test
+    fun failToLoadReminders() = runBlockingTest {
+        dataSource.setShouldReturnError(true)
+        remindersListViewModel.loadReminders()
+        assertEquals(remindersListViewModel.showErrorMessage.getOrAwaitValue(), context.getString(R.string.reminder_list_empty_error_message))
+    }
+
+    @Test
     fun noRemindersToDisplayToastTest() = runBlockingTest {
         val mockedDataSource = mock(ReminderDataSource::class.java)
         whenever(mockedDataSource.getReminders()).thenReturn(Result.Success(mutableListOf()))

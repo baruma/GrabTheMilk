@@ -160,12 +160,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-        //todo triggering crash
-//        Snackbar.make(
-//            binding.root,
-//            "Please choose a place for your reminder.",
-//            Snackbar.LENGTH_LONG
-//        ).show()
         Log.d(TAG, "MapsFragment AFTER onViewCreated snackbar")
 
         // FOREGROUND VARIABLES

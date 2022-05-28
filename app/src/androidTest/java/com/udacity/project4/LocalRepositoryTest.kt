@@ -31,11 +31,6 @@ class LocalRepositoryTest {
     private lateinit var database: RemindersDatabase
     private lateinit var repository: RemindersLocalRepository
 
-    private var shouldReturnFalse = false
-
-    fun setReturnError(value: Boolean) {
-        shouldReturnFalse = value
-    }
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
@@ -61,7 +56,6 @@ class LocalRepositoryTest {
             .build()
 
         repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.Main)
-        setReturnError(false)
     }
 
     @After
@@ -74,6 +68,7 @@ class LocalRepositoryTest {
         repository.saveReminder(reminder)
 
 //        val reminder = repository.saveReminder(reminder)
+
         val result = repository.getReminders()
         Truth.assertThat(result).isInstanceOf(Result.Success::class.java)
 
@@ -104,8 +99,6 @@ class LocalRepositoryTest {
 
     @Test
     fun getRemindersFailure() = runBlocking {
-        setReturnError(true)
-
         val result = repository.getReminderByID(reminder.id)
         Truth.assertThat(result).isInstanceOf(Result.Error::class.java)
         Truth.assertThat((result as Result.Error).message).isEqualTo("Reminder not found!")

@@ -7,6 +7,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.testing.TestNavHostController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
@@ -18,8 +19,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -36,10 +36,7 @@ import com.udacity.project4.util.monitorFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.not
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -106,44 +103,63 @@ class ReminderListFragmentTest {
         }
     }
 
-// Testing the fragments’ navigation.
+    // Testing the fragments’ navigation.
     @Test
     fun testNavigationToSaveReminderFragment() {
         // Create a mock NavController
-        val mockNavController = mock(NavController::class.java)
+//        val mockNavController = mock(NavController::class.java)
+
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
 
         // Create a graphical FragmentScenario for the TitleScreen
-        val reminderListScenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+        val reminderListScenario =
+            launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
         dataBindingIdlingResource.monitorFragment(reminderListScenario)
 
         // Set the NavController property on the fragment
         reminderListScenario.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), mockNavController)
+            navController.setGraph(R.navigation.nav_graph)
+            Navigation.setViewNavController(fragment.requireView(), navController)
         }
 
         // Verify that performing a click prompts the correct Navigation action
-        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
-        verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.to_save_reminder))
+        onView(withId(R.id.addReminderFAB)).perform(ViewActions.click())
+
+//        verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.to_save_reminder))
+        Assert.assertEquals(navController.currentDestination!!.id, R.id.saveReminderFragment)
     }
 
     // How do test this without the ID of the ViewHolder?
     fun testNavigationToReminderDescriptionFragment() {
-        val mockNavController = mock(NavController::class.java)
+//        val mockNavController = mock(NavController::class.java)
 
-        val reminderListScenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+
+        // Create a TestNavHostController
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
+
+
+        val reminderListScenario =
+            launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
         reminderListScenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), mockNavController)
+            navController.setGraph(R.navigation.nav_graph)
+            Navigation.setViewNavController(it.requireView(), navController)
 
-            Espresso.onView(ViewMatchers.withId(R.id.reminderssRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
-            verify(mockNavController).navigate(ActionOnlyNavDirections(R.id.action_reminderListFragment_to_descriptionFragment))
-
+            Espresso.onView(ViewMatchers.withId(R.id.reminderssRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    0,
+                    ViewActions.click()
+                )
+            )
+            Assert.assertEquals(navController.currentDestination!!.id, R.id.descriptionFragment)
         }
     }
 
-
     @Test
     fun testToastRequirement() {
-        val reminderListScenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+        val reminderListScenario =
+            launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
         dataBindingIdlingResource.monitorFragment(reminderListScenario)
 
 

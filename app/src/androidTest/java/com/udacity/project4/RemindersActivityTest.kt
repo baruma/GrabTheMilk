@@ -146,7 +146,6 @@ class RemindersActivityTest :
         onView(withText(reminderDataItem.description)).check(matches(isDisplayed()))
     }
 
-    // Here be the problematic test.
     @Test
     fun testEmptyyReminderListMessage() {
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)

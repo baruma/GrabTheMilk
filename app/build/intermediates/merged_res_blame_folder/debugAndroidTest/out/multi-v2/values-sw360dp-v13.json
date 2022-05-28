@@ -4,7 +4,7 @@
             "outputFile": "/Users/lianahaque/AndroidStudioProjects/starter/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-sw360dp-v13/values-sw360dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/lianahaque/.gradle/caches/transforms-2/files-2.1/cba0bee67cbe3faea6fe383d5b623e68/jetified-firebase-ui-auth-8.0.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
+                    "source": "/Users/lianahaque/.gradle/caches/transforms-2/files-2.1/13d3211d96672b61700f687f719d18a5/jetified-firebase-ui-auth-8.0.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",
